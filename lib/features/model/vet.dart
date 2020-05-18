@@ -1,30 +1,30 @@
-class User {
-  int userID;
+class Vet {
+  int vetID;
   String name;
   String adress;
   String number;
   int level;
-  int petID;
+  String klinik;
 
-  User({this.userID, this.name, this.adress, this.number,this.level, this.petID});
+  Vet({this.vetID, this.name, this.adress, this.number, this.klinik});
 
-  User.fromJson(Map<String, dynamic> json) {
-    userID = json['userID'];
+  Vet.fromJson(Map<String, dynamic> json) {
+    vetID = json['vetID'];
     name = json['name'];
     adress = json['adress'];
     number = json['number'];
     level=json['level'];
-    petID = json['petID'];
+    klinik = json['klinik'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userID'] = this.userID;
+    data['vetID'] = this.vetID;
     data['name'] = this.name;
     data['adress'] = this.adress;
     data['number'] = this.number;
     data['level']=this.level;
-    data['petID'] = this.petID;
+    data['klinik'] = this.klinik;
     return data;
   }
 }
