@@ -5,7 +5,7 @@ class UserDB {
   UserDB() {
     createTable();
   }
- static Future createTable() async {
+  Future createTable() async {
     var client = await DBConn.db;
     client.query("""CREATE TABLE if not exists users (
       id int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
@@ -19,7 +19,7 @@ class UserDB {
     //await client.close();
   }
 
- static Future addUser(User user) async {
+  Future addUser(User user) async {
     var client = await DBConn.db;
    await client.query(
         'insert into users (name, adress, number,level,petID) values (?,?,?,?,?)',
