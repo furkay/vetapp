@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vetapp/features/model/user.dart';
-import 'package:vetapp/features/service/user_db.dart';
+import 'package:vetapp/core/router.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,44 +15,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      initialRoute: homeRoute,
+      onGenerateRoute: Router.generateRoute,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
 
-class _MyHomePageState extends State<MyHomePage> {
-  @override
- 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-          child: Column(
-        children: <Widget>[
-          RaisedButton(
-            child: Text("kaydet"),
-            onPressed: () {
-             // UserDB userDB = UserDB();
-              UserDB.addUser(User(
-                  adress: "sa",
-                  level: 10,
-                  name: "furkan",
-                  number: "1",
-                  petID: 12,
-                  userID: 21));
-                  setState(() {
-                    
-                  });
-            },
-          )
-        ],
-      )),
-    );
-  }
-}
+
