@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Text("login"),
             onPressed: () {
               //Using for create design
-              Navigator.of(context).pushNamed(addVaccine);
+              Navigator.of(context).pushNamed(addTreatment);
             },
           )
         ],
