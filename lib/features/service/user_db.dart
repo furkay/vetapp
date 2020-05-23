@@ -12,18 +12,23 @@ class UserDB {
       name varchar(255), 
       adress varchar(255),
       number varchar(11),
-      level int,
+      level varchar(15),
       petID int
        )""");
-      
+
     //await client.close();
   }
 
   Future addUser(User user) async {
     var client = await DBConn.db;
-   await client.query(
+    await client.query(
         'insert into users (name, adress, number,level,petID) values (?,?,?,?,?)',
-        [user.name, user.adress, user.number, user.level, user.petID]);
- //   await client.close();
+        [user.name,
+        user.adress,
+        user.number,
+        user.level,
+        user.petID
+        ]);
+    //   await client.close();
   }
 }

@@ -3,7 +3,7 @@ class User {
   String name;
   String adress;
   String number;
-  int level;
+  String level;
   int petID;
 
   User({this.userID, this.name, this.adress, this.number,this.level, this.petID});
