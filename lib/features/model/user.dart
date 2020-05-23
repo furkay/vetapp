@@ -4,9 +4,10 @@ class User {
   String adress;
   String number;
   String level;
+  String password;
   int petID;
 
-  User({this.userID, this.name, this.adress, this.number,this.level, this.petID});
+  User({this.userID, this.name, this.adress, this.number,this.level, this.petID,this.password});
 
   User.fromJson(Map<String, dynamic> json) {
     userID = json['userID'];

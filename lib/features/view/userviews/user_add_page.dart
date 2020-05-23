@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:vetapp/core/view/base/base_state.dart';
 import 'package:vetapp/core/view/widget/TextFormField/build_custom_field.dart';
 import 'package:vetapp/core/view/widget/TextFormField/text_form_field_object.dart';
 import 'package:vetapp/features/model/user.dart';
+import 'package:vetapp/features/model/vet.dart';
 import 'package:vetapp/features/service/user_db.dart';
+import 'package:vetapp/features/service/vet_db.dart';
 
 class UserAdd extends StatefulWidget {
   @override
@@ -14,6 +18,9 @@ class _UserAddState extends BaseState<UserAdd> {
   TextEditingController userName = TextEditingController();
   TextEditingController adress = TextEditingController();
   TextEditingController number = TextEditingController();
+  TextEditingController vergiNoCtrl = TextEditingController();
+  TextEditingController klinikCtrl = TextEditingController();
+  TextEditingController passCtrl = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String userLevel = 'Uye';
   String hata;
@@ -58,14 +65,36 @@ class _UserAddState extends BaseState<UserAdd> {
                 children: children,
               ),
             ),
+            Container(
+              padding: insetHorizontal(0.2),
+              child: TextFormField(
+                obscureText: true,
+                controller: passCtrl,
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.info_outline), hintText: "Şifre"),
+              ),
+            ),
             Visibility(
               visible: taxVisible,
               child: Container(
                 padding: insetHorizontal(0.2),
                 child: TextFormField(
+                  controller: vergiNoCtrl,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.info_outline),
                       hintText: "Vergi no"),
+                ),
+              ),
+            ),
+            Visibility(
+              visible: taxVisible,
+              child: Container(
+                padding: insetHorizontal(0.2),
+                child: TextFormField(
+                  controller: klinikCtrl,
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.local_hospital),
+                      hintText: "Klinik"),
                 ),
               ),
             ),
@@ -105,16 +134,29 @@ class _UserAddState extends BaseState<UserAdd> {
             Builder(
               builder: (context) => RaisedButton.icon(
                 onPressed: () {
+                  int i = Random().nextInt(10000);
                   UserDB()
                       .addUser(User(
-                        name: userName.text,
-                        adress: adress.text,
-                        number: number.text,
-                        level: userLevel,
-                      ))
+                          name: userName.text,
+                          adress: adress.text,
+                          number: number.text,
+                          level: userLevel,
+                          password: passCtrl.text))
                       .then((value) => value != null
-                          ? showSnackbar("Bu kullanıcı adı zaten kayıtlı")
+                          ? showSnackbar("Bu kullanıcı adı zaten kayıtlı.")
                           : null);
+                  userLevel == "Veteriner"
+                      ? VetDB()
+                          .addVet(Vet(
+                              vetID: i,
+                              kullaniciAdi: userName.text,
+                              klinik: klinikCtrl.text,
+                              vergiNo: vergiNoCtrl.text,
+                              sifre: passCtrl.text))
+                          .then((value) => value != null
+                              ? showSnackbar("Bu kullanıcı adı zaten kayıtlı")
+                              : null)
+                      : print("Kullanici");
                 },
                 icon: Icon(Icons.send),
                 label: Text("Kaydet"),

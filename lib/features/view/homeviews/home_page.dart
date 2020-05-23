@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vetapp/core/router.dart';
-import 'package:vetapp/features/view/petviews/pets_card.dart';
+import 'package:vetapp/features/service/user_db.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -86,8 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       // Validate returns true if the form is valid, or false
                       // otherwise.
                       if (_formKey.currentState.validate()) {
-                        // If the form is valid, display a Snackbar.
-                        Navigator.of(context).pushNamed(addTreatment);
+                        UserDB()
+                            .authControl(userNameCtrl.text, passwordCtrl.text)
+                            .then((value) => value.isNotEmpty
+                                ? Navigator.of(context).pushNamed(addTreatment)
+                                : print("hata"));
                       }
                     },
                     child: Text("Giriş Yap"),
