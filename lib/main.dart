@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vetapp/core/router.dart';
+import 'package:vetapp/core/service_locator.dart';
 
 Future<void> main() async {
+  await setupLocator();
   runApp(MyApp());
 }
 
@@ -20,6 +22,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-

@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 buildLoginForm(),
 
                 //PetsCard Kullanıcı Profiline koyulacak calistirmak için koydum comment alınabilir
-                //PetsCard(),
+               PetsCard(),
               ],
             ),
           ),

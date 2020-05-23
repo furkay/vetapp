@@ -2,6 +2,7 @@ import 'package:vetapp/core/service/db_conn.dart';
 import 'package:vetapp/features/model/pet.dart';
 
 class PetDB {
+  
   PetDB() {
     createTable();
   }
@@ -26,7 +27,7 @@ class PetDB {
 
   Future<Pet> fetchPet() async {
     //kullanici objesinden çekilecek normalde -id
-    int id = 1;
+    int id = 4;
 
     var client = await DBConn.db;
     var results =
