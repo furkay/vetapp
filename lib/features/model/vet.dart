@@ -1,9 +1,10 @@
 class Vet {
   int vetID;
-  int vergiNo;
+  String vergiNo;
   String klinik;
+  String kullaniciAdi;
 
-  Vet({this.vetID, this.vergiNo, this.klinik});
+  Vet({this.vetID, this.vergiNo, this.klinik,this.kullaniciAdi});
 
   // Vet.fromJson(Map<String, dynamic> json) {
   //   vetID = json['vetID'];
