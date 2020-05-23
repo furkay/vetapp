@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vetapp/core/view/base/base_state.dart';
-import 'package:vetapp/features/view/petviews/pet_dialog.dart';
+import 'package:vetapp/core/view/widget/TextFormField/build_custom_field.dart';
+import 'package:vetapp/core/view/widget/TextFormField/text_form_field_object.dart';
+import 'package:vetapp/features/model/pet.dart';
+import 'package:vetapp/features/service/pet_db.dart';
 
 class PetsCard extends StatefulWidget {
   @override
@@ -8,8 +11,17 @@ class PetsCard extends StatefulWidget {
 }
 
 class _PetsCardState extends BaseState<PetsCard> {
- 
+
   
+  TextEditingController petType = TextEditingController();
+  TextEditingController petYear = TextEditingController();
+  @override
+  void initState() {
+    PetDB().fetchPet().then((value) => model = value);
+    super.initState();
+  }
+
+  var model;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,20 +31,67 @@ class _PetsCardState extends BaseState<PetsCard> {
         children: <Widget>[
           Padding(
             padding: insetsAll(0.02),
-            child: Align(child: FloatingActionButton(onPressed: ()=>showDialog(context:context,
-            child: Container( height: dynamicHeight(0.5), width: dynamicWidth(0.8), child: PetDialog()) 
-            ),child: Icon(Icons.add), ),alignment: Alignment.topRight,),
+            child: Align(
+              child: FloatingActionButton(
+                onPressed: () => showDialog(
+                    context: context,
+                    child: Container(
+                        height: dynamicHeight(0.5),
+                        width: dynamicWidth(0.8),
+                        child: petDialog())),
+                child: Icon(Icons.add),
+              ),
+              alignment: Alignment.topRight,
+            ),
           ),
-         Center(child: Text("Şu anda hiç evcil hayvanınız yok !!! \n Sağ üstteki butondan ekleyebilirsiniz..", textAlign: TextAlign.center,))
-          // Center(child: FutureBuilder(future:pet,builder: (context,snapshot){
-          //   if(snapshot.hasData){
-          //     print(snapshot.data.petType);
-          //     return Text(snapshot.data.petType);
-          //   }
-          //   return Center(child: Text("Şu anda hiç evcil hayvanınız yok !!! \n Sağ üstteki butondan ekleyebilirsiniz..", textAlign: TextAlign.center,));
-          // },),)
+      
+
+          Center(
+              child: Text(model == null
+                  ? "Şu anda hiç evcil hayvanınız yok !!! \n Sağ üstteki butondan ekleyebilirsiniz.."
+                  : model.petType, textAlign: TextAlign.center,)),
         ],
       ),
+    );
+  }
+
+  AlertDialog petDialog() {
+    List<TextFormFieldObject> fields = [
+      TextFormFieldObject(
+          hintText: "Evcil Hayvan Tipi",
+          icon: Icons.colorize,
+          controller: petType),
+      TextFormFieldObject(
+          hintText: "Doğum Tarihi", icon: Icons.colorize, controller: petYear)
+    ];
+    List<Widget> children = [];
+    fields.forEach((element) {
+      children.add(
+          buildTextFormField(field: element, padding: insetHorizontal(0.01)));
+    });
+    return AlertDialog(
+      title: Text("Evcil Hayvan Bilgileri"),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: children,
+        ),
+      ),
+      actions: <Widget>[
+        RaisedButton.icon(
+            onPressed: () {
+              Pet pet = Pet(petType: petType.text, year: petYear.text);
+              PetDB().addPet(pet).then((value) {
+                Navigator.of(context).pop();
+              });
+
+              setState(() {
+                model = pet;
+              });
+            },
+            icon: Icon(Icons.save),
+            label: Text("Kaydet"))
+      ],
     );
   }
 }
