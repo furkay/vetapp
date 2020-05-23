@@ -35,9 +35,9 @@ class _PetDialogState extends BaseState<PetDialog> {
 
     return AlertDialog(
       title: Text("Evcil Hayvan Bilgileri"),
-      content: Container(
-        height: dynamicHeight(0.25),
+      content: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: children,
         ),
       ),
