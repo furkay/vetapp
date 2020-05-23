@@ -8,8 +8,8 @@ class UserDB {
   Future createTable() async {
     var client = await DBConn.db;
     client.query("""CREATE TABLE if not exists users (
-      id int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-      name varchar(255), 
+      id int NOT NULL, 
+      name varchar(255) PRIMARY KEY, 
       adress varchar(255),
       number varchar(11),
       level varchar(15),
@@ -19,8 +19,9 @@ class UserDB {
     //await client.close();
   }
 
-  Future addUser(User user) async {
+  Future<String> addUser(User user) async {
     var client = await DBConn.db;
+    String hata;
     await client.query(
         'insert into users (name, adress, number,level,petID) values (?,?,?,?,?)',
         [user.name,
@@ -28,7 +29,8 @@ class UserDB {
         user.number,
         user.level,
         user.petID
-        ]);
+        ]).catchError((error){hata = error.toString();});
     //   await client.close();
+    return hata;
   }
 }
