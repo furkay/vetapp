@@ -20,6 +20,7 @@ class _UserAddState extends BaseState<UserAdd> {
   TextEditingController number = TextEditingController();
   TextEditingController vergiNoCtrl = TextEditingController();
   TextEditingController klinikCtrl = TextEditingController();
+  TextEditingController passCtrl = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String userLevel = 'Uye';
   String hata;
@@ -62,6 +63,15 @@ class _UserAddState extends BaseState<UserAdd> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: children,
+              ),
+            ),
+            Container(
+              padding: insetHorizontal(0.2),
+              child: TextFormField(
+                obscureText: true,
+                controller: passCtrl,
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.info_outline), hintText: "Şifre"),
               ),
             ),
             Visibility(
@@ -127,13 +137,13 @@ class _UserAddState extends BaseState<UserAdd> {
                   int i = Random().nextInt(10000);
                   UserDB()
                       .addUser(User(
-                        name: userName.text,
-                        adress: adress.text,
-                        number: number.text,
-                        level: userLevel,
-                      ))
+                          name: userName.text,
+                          adress: adress.text,
+                          number: number.text,
+                          level: userLevel,
+                          password: passCtrl.text))
                       .then((value) => value != null
-                          ? showSnackbar("Bu kullanıcı adı zaten kayıtlı")
+                          ? showSnackbar("Bu kullanıcı adı zaten kayıtlı.")
                           : null);
                   userLevel == "Veteriner"
                       ? VetDB()
@@ -141,7 +151,8 @@ class _UserAddState extends BaseState<UserAdd> {
                               vetID: i,
                               kullaniciAdi: userName.text,
                               klinik: klinikCtrl.text,
-                              vergiNo: vergiNoCtrl.text))
+                              vergiNo: vergiNoCtrl.text,
+                              sifre: passCtrl.text))
                           .then((value) => value != null
                               ? showSnackbar("Bu kullanıcı adı zaten kayıtlı")
                               : null)

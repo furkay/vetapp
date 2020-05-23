@@ -11,7 +11,8 @@ class VetDB {
       id int NOT NULL, 
       vergiNo varchar(255),
       kullaniciAdi varchar(255) PRIMARY KEY,
-      klinik varchar(255)
+      klinik varchar(255),
+      sifre varchar(255)
        )""");
 
     //await client.close();
@@ -21,12 +22,13 @@ class VetDB {
     var client = await DBConn.db;
     String hata;
     await client.query(
-        'insert into vets (id, klinik, kullaniciAdi,vergiNo) values (?,?,?,?)',
+        'insert into vets (id, klinik, kullaniciAdi,vergiNo,sifre) values (?,?,?,?,?)',
         [
           vet.vetID,
           vet.klinik,
           vet.kullaniciAdi,
           vet.vergiNo,
+          vet.sifre
         ]).catchError((error) {
       hata = error.toString();
     });

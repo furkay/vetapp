@@ -12,6 +12,7 @@ class UserDB {
       name varchar(255) PRIMARY KEY, 
       adress varchar(255),
       number varchar(11),
+      password varchar(255),
       level varchar(15),
       petID int
        )""");
@@ -23,11 +24,12 @@ class UserDB {
     var client = await DBConn.db;
     String hata;
     await client.query(
-        'insert into users (name, adress, number,level,petID) values (?,?,?,?,?)',
+        'insert into users (name, adress, number,level,password,petID) values (?,?,?,?,?,?)',
         [user.name,
         user.adress,
         user.number,
         user.level,
+        user.password,
         user.petID
         ]).catchError((error){hata = error.toString();});
     //   await client.close();
