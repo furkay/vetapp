@@ -14,16 +14,41 @@ class TreatmentDB {
       treatmentDate varchar(255),
       primary key(petID,treatmentDate)
        )""");
-      
+
     //await client.close();
   }
 
   Future addTreatment(Treatment treatment) async {
-    
     var client = await DBConn.db;
-   await client.query(
+    await client.query(
         'insert into treatments (petID, medicineNames,treatmentName,treatmentDate) values (?,?,?,?)',
-        [treatment.petID, treatment.medicineNames, treatment.treatmentName,treatment.treatmentDate ]);
- //   await client.close();
+        [
+          treatment.petID,
+          treatment.medicineNames,
+          treatment.treatmentName,
+          treatment.treatmentDate
+        ]);
+    //   await client.close();
   }
+
+  Future<List<Treatment>> fetchTreatments() async {
+    List<Treatment> treatments = [];
+    var client = await DBConn.db;
+    var results = await client.query('select * from treatments');
+
+    results.forEach((rs) {
+      Treatment treatment = Treatment();
+      treatment.petID = rs[0];
+      treatment.medicineNames = rs[1];
+      treatment.treatmentName = rs[2];
+      treatment.treatmentDate = rs[3];
+      treatments.add(treatment);
+    });
+
+    //   await client.close();
+    return treatments;
+  }
+
+  
+
 }

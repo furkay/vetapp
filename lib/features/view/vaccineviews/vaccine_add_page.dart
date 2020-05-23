@@ -54,8 +54,8 @@ class _VaccineAddState extends BaseState<VaccineAdd> {
                 VaccineDB().addVaccine(Vaccine(
                     petID: i,
                     vaccineDate: name.text,
-                    vaccineName: date.text));
-                Navigator.of(context).pop();
+                    vaccineName: date.text)).then((value) => Navigator.of(context).pop());
+                
               },
               icon: Icon(Icons.send),
               label: Text("Kaydet"),

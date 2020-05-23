@@ -15,7 +15,7 @@ class _TreatmentAddState extends BaseState<TreatmentAdd> {
   TextEditingController treatmentName = TextEditingController();
   TextEditingController date = TextEditingController();
   TextEditingController medicine = TextEditingController();
-
+  
   @override
   Widget build(BuildContext context) {
     //TextField Create
@@ -59,10 +59,21 @@ class _TreatmentAddState extends BaseState<TreatmentAdd> {
                     petID: i,
                     treatmentDate: date.text,
                     treatmentName: treatmentName.text));
-                Navigator.of(context).pop();
+                    //.then((value) => Navigator.of(context).pop());
+                
               },
               icon: Icon(Icons.send),
               label: Text("Kaydet"),
+            ),
+            Container(height: dynamicHeight(0.3),
+            child:FutureBuilder(future:TreatmentDB().fetchTreatments(),builder: (context, snapshot){
+              if(snapshot.hasData){
+                return ListView.builder(itemCount: snapshot.data.length,itemBuilder: (context,index){
+                  return Center(child: Text(snapshot.data[index].treatmentName));
+                });
+              }
+              return CircularProgressIndicator();
+            }),
             )
           ],
         ),

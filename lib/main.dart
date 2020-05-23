@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vetapp/core/router.dart';
 
-void main() {
+Future<void> main() async {
   runApp(MyApp());
 }
 
