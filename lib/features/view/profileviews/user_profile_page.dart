@@ -76,35 +76,5 @@ class _UserProfileState extends BaseState<UserProfile> {
     );
   }
 
-  Widget textfieldWidget(
-      TextEditingController textEditingController,
-      String label,
-      IconData iconData,
-      bool isEnable,
-      bool isSuffix,
-      bool obscure) {
-    return Container(
-      padding: EdgeInsets.only(left: 15),
-      decoration: BoxDecoration(
-        color: Colors.red,
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-      ),
-      child: TextFormField(
-        enabled: isEnable,
-        controller: textEditingController,
-        minLines: 1,
-        obscureText: obscure,
-        decoration: InputDecoration(
-          labelText: label,
-          labelStyle: TextStyle(
-            color: Colors.black87,
-          ),
-          filled: true,
-          fillColor: Colors.grey.shade50.withAlpha(10),
-          border: InputBorder.none,
-          icon: Icon(iconData, color: Colors.orange),
-        ),
-      ),
-    );
-  }
+  
 }
