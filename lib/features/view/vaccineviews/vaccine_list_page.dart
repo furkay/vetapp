@@ -73,20 +73,53 @@ class _VaccineListPageState extends BaseState<VaccineListPage> {
                     : ListView.builder(
                         itemCount: getVaccine.globalVaccineList.length,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onLongPress: () {
-                              VaccineDB().deleteVaccine(
-                                  getVaccine
-                                      .globalVaccineList[index].vaccineName,
-                                  widget.petID);
-                              sl<VaccineProvider>()
-                                  .getData(petID: widget.petID);
-                            },
-                            child: ListTile(
-                              title: Text(getVaccine
-                                  .globalVaccineList[index].vaccineName),
-                              subtitle: Text(getVaccine
-                                  .globalVaccineList[index].vaccineDate),
+                          return Card(
+                            margin: insetSymmetric(width: 0.04, height: 0.02),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Spacer(),
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        getVaccine.globalVaccineList[index]
+                                            .vaccineName,
+                                        style: TextStyle(fontSize: 25),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        getVaccine.globalVaccineList[index]
+                                            .vaccineDate,
+                                        style: TextStyle(fontSize: 12),
+                                        textAlign: TextAlign.center,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: insetsAll(0.02),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          VaccineDB().deleteVaccine(
+                                              getVaccine
+                                                  .globalVaccineList[index]
+                                                  .vaccineName,
+                                              widget.petID);
+                                          sl<VaccineProvider>()
+                                              .getData(petID: widget.petID);
+                                        },
+                                        child: CircleAvatar(
+                                          child: Icon(Icons.delete),
+                                        ),
+                                      ),
+                                    ))
+                              ],
                             ),
                           );
                         }),

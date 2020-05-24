@@ -3,7 +3,7 @@ import 'package:vetapp/core/service/db_conn.dart';
 import 'package:vetapp/features/model/treatment.dart';
 
 class TreatmentDB {
-  List<Treatment> globalTreatments=[];
+  List<Treatment> globalTreatments = [];
   TreatmentDB() {
     createTable();
   }
@@ -33,11 +33,22 @@ class TreatmentDB {
     //   await client.close();
   }
 
+  Future deleteTreatment(String treatmentName, int petID) async {
+    var client = await DBConn.db;
+    await client
+        .query(
+            'delete from treatments WHERE treatmentName = "$treatmentName" AND petID = $petID')
+        .catchError((onError) {
+      print(onError);
+    });
+    //   await client.close();
+  }
+
   Future fetchTreatments({@required int petID}) async {
-    
     List<Treatment> treatments = [];
     var client = await DBConn.db;
-    var results = await client.query('select * from treatments where petID=$petID');
+    var results =
+        await client.query('select * from treatments where petID=$petID');
 
     results.forEach((rs) {
       Treatment treatment = Treatment();
@@ -49,9 +60,6 @@ class TreatmentDB {
     });
 
     //   await client.close();
-    globalTreatments= treatments;
+    globalTreatments = treatments;
   }
-
-  
-
 }
