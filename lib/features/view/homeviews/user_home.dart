@@ -26,7 +26,7 @@ class _UserHomeState extends State<UserHome> {
           ],
         ),
         body: SingleChildScrollView(
-          child: Column(
+                  child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               PetsCard(),
@@ -42,33 +42,41 @@ class _UserHomeState extends State<UserHome> {
                   },
                 ),
               ) */
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(8),
-                  color: Colors.red,
-                  child: Text("KLİNİKLER")),
+
               FutureBuilder<List>(
                 future: VetDB().fetchVet(),
                 initialData: List(),
                 builder: (context, snapshot) {
                   return snapshot.hasData
-                      ? Container(
-                          height: MediaQuery.of(context).size.height * 0.5,
-                          child: ListView.builder(
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (_, int position) {
-                              return Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    snapshot.data[position].kullaniciAdi,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                      ? Column(
+                        mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                                width: MediaQuery.of(context).size.width,
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.all(8),
+                                color: Colors.red,
+                                child: Text("KLİNİKLER")),
+                            Container(
+                              height: MediaQuery.of(context).size.height * 0.3,
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                               shrinkWrap: true,
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (_, int position) {
+                                  return Card(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        snapshot.data[position].kullaniciAdi,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         )
                       : Center(
                           child: CircularProgressIndicator(),
