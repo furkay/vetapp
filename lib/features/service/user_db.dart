@@ -40,6 +40,19 @@ class UserDB {
     return hata;
   }
 
+  Future<User> updateUserValues(String username, User user) async {
+    var client = await DBConn.db;
+
+    await client
+        .query(
+            ' UPDATE users SET adress = "${user.adress}", number= "${user.number}", password = "${user.password}" where name = "$username" ')
+        .catchError((error) {
+      hata = error.toString();
+    });
+    //   await client.close();
+    return user;
+  }
+
   Future<User> authControl(String username, String pass) async {
     var client = await DBConn.db;
     var rs = await client

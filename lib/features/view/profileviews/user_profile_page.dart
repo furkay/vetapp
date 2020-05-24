@@ -12,11 +12,6 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends BaseState<UserProfile> {
   var user = sl<UserProvider>();
-
-  final TextEditingController _nameControl = TextEditingController();
-  final TextEditingController _adressControl = TextEditingController();
-  final TextEditingController _numberControl = TextEditingController();
-  final TextEditingController _passControl = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +70,4 @@ class _UserProfileState extends BaseState<UserProfile> {
       ),
     );
   }
-
-  
 }
