@@ -40,7 +40,9 @@ class _UserProfileState extends BaseState<UserProfile> {
             buildProfileRow("Numara :", "${user.getUser.number}"),
             //buraya profil bilgilerini full çekersin
             //bu pet cartta bu sayfada biyerde olur
+            
             PetsCard(),
+            
           ],
         ),
       )),

@@ -27,9 +27,9 @@ class PetDB {
     //   await client.close();
   }
 
-  Future<Pet> fetchPet({@required String userName}) async {
+  Future <List<Pet>> fetchPet({@required String userName}) async {
     //kullanici objesinden çekilecek normalde -id
-
+    List<Pet> pets=[];
     var client = await DBConn.db;
     var results = await client
         .query(
@@ -38,15 +38,17 @@ class PetDB {
       throw onError;
     });
 
-    Pet pet = Pet();
+    
     results.forEach((element) {
+      Pet pet = Pet();
       pet.petID = element[3];
       pet.petType = element[0];
       pet.year = element[1];
       pet.userName = element[2];
+      pets.add(pet);
     });
 
     //   await client.close();
-    return pet;
+    return pets;
   }
 }
