@@ -49,14 +49,8 @@ class _VetHomeState extends State<VetHome> {
                     ? Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.all(10),
-                            color: Colors.grey.shade300,
-                            child: Text("Üyeler"),
-                          ),
                           Card(
+                            color: Colors.red.shade200,
                             child: Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Row(
@@ -65,20 +59,6 @@ class _VetHomeState extends State<VetHome> {
                                     flex: 1,
                                     child: Text(
                                       "İsim",
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      "Adres",
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      "Numara",
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
@@ -97,26 +77,22 @@ class _VetHomeState extends State<VetHome> {
                                   child: Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        Expanded(
-                                          flex: 1,
-                                          child: Text(
-                                            snapshot.data[position].name,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Text(
-                                            snapshot.data[position].adress,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Text(
-                                            snapshot.data[position].number,
-                                            textAlign: TextAlign.center,
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).pushNamed(
+                                                userDetails,
+                                                arguments: snapshot
+                                                    .data[position].name);
+                                          },
+                                          child: Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              snapshot.data[position].name,
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
                                         ),
                                       ],

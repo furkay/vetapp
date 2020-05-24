@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:vetapp/core/router.dart';
 import 'package:vetapp/core/service_locator.dart';
 import 'package:vetapp/features/service/user_db.dart';
-import 'package:vetapp/features/view/petviews/pets_card.dart';
 import 'package:vetapp/features/viewmodel/user_provider.dart';
 
 class MyHomePage extends StatefulWidget {

@@ -6,6 +6,7 @@ import 'package:vetapp/features/view/petviews/pet_tab.dart';
 import 'package:vetapp/features/view/profileviews/user_profile_page.dart';
 import 'package:vetapp/features/view/treatmentviews/treatment_add_page.dart';
 import 'package:vetapp/features/view/userviews/user_add_page.dart';
+import 'package:vetapp/features/view/userviews/user_details.dart';
 import 'package:vetapp/features/view/userviews/user_edit.dart';
 import 'package:vetapp/features/view/vaccineviews/vaccine_add_page.dart';
 
@@ -19,6 +20,7 @@ const String editProfile = "/edit_profile";
 
 const String userHome = "/userHome";
 const String vetHome = "/vetHome";
+const String userDetails = "/userDetails";
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -27,7 +29,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => MyHomePage());
         break;
       case addVaccine:
-        return MaterialPageRoute(builder: (_) => VaccineAdd(petID: settings.arguments));
+        return MaterialPageRoute(
+            builder: (_) => VaccineAdd(petID: settings.arguments));
         break;
       case addTreatment:
         return MaterialPageRoute(
@@ -37,17 +40,27 @@ class Router {
         break;
       case addUser:
         return MaterialPageRoute(builder: (_) => UserAdd());
+        break;
       case petTab:
         return MaterialPageRoute(
             builder: (_) => PetTab(petID: settings.arguments));
+        break;
       case userProfile:
         return MaterialPageRoute(builder: (_) => UserProfile());
+        break;
       case editProfile:
         return MaterialPageRoute(builder: (_) => EditProfile());
+        break;
       case userHome:
         return MaterialPageRoute(builder: (_) => UserHome());
+        break;
       case vetHome:
         return MaterialPageRoute(builder: (_) => VetHome());
+        break;
+      case userDetails:
+        return MaterialPageRoute(
+            builder: (_) => UserDetails(data: settings.arguments));
+        break;
     }
   }
 }

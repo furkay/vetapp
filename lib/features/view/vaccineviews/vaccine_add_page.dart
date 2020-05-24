@@ -5,8 +5,6 @@ import 'package:vetapp/core/view/widget/TextFormField/build_custom_field.dart';
 import 'package:vetapp/core/view/widget/TextFormField/text_form_field_object.dart';
 import 'package:vetapp/features/model/vaccine.dart';
 import 'package:vetapp/features/service/vaccine_db.dart';
-import 'dart:math';
-
 import 'package:vetapp/features/viewmodel/vaccine_provider.dart';
 
 class VaccineAdd extends StatefulWidget {
@@ -22,8 +20,6 @@ class _VaccineAddState extends BaseState<VaccineAdd> {
 
   @override
   Widget build(BuildContext context) {
-    //TextField Create
-
     List<TextFormFieldObject> fields = [
       TextFormFieldObject(
           hintText: "Aşı Adı", icon: Icons.colorize, controller: name),
@@ -55,21 +51,20 @@ class _VaccineAddState extends BaseState<VaccineAdd> {
             ),
             RaisedButton.icon(
               // onPressed: () {
-               
+
               //   VaccineDB().addVaccine(Vaccine(
               //       petID: i,
               //       vaccineDate: name.text,
               //       vaccineName: date.text)).then((value) => Navigator.of(context).pop());
-                
+
               // },
-                onPressed: () {
+              onPressed: () {
                 VaccineDB()
                     .addVaccine(Vaccine(
-                        petID:  widget.petID ,
+                        petID: widget.petID,
                         vaccineName: name.text,
                         vaccineDate: date.text))
                     .then((value) async {
-                  
                   sl<VaccineProvider>().getData(petID: widget.petID);
                   Navigator.of(context).pop();
                 });

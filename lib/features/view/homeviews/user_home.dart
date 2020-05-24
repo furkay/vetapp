@@ -30,19 +30,6 @@ class _UserHomeState extends State<UserHome> {
           mainAxisSize: MainAxisSize.min,
           children: [
             PetsCard(),
-            /*
-              Container(
-                height: MediaQuery.of(context).size.height * 0.5,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: 15,
-                  itemBuilder: (context, index) {
-                    return buildClinicRows();
-                  },
-                ),
-              ) */
-
             FutureBuilder<List>(
               future: VetDB().fetchVet(),
               initialData: List(),
