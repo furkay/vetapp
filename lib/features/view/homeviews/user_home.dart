@@ -51,12 +51,17 @@ class _UserHomeState extends State<UserHome> {
                               shrinkWrap: true,
                               itemCount: snapshot.data.length,
                               itemBuilder: (_, int position) {
-                                return Card(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      snapshot.data[position].kullaniciAdi,
-                                      textAlign: TextAlign.center,
+                                return GestureDetector(
+                                  onTap: (){
+                                    Navigator.of(context).pushNamed(vetDetails, arguments:snapshot.data[position].kullaniciAdi);
+                                  },
+                                  child: Card(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        snapshot.data[position].kullaniciAdi,
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                   ),
                                 );

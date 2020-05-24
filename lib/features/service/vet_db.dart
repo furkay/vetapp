@@ -35,6 +35,29 @@ class VetDB {
     //   await client.close();
     return hata;
   }
+  
+  Future<List<Vet>> fetchVetAllData(String userName) async {
+    List<Vet> vets = [];
+    var client = await DBConn.db;
+    var results = await client
+        .query('select * from vets where kullaniciAdi="$userName"')
+        .catchError((onError) {
+      throw onError;
+    });
+
+    results.forEach((element) {
+      Vet vet = Vet();
+      vet.vetID = element[0];
+      vet.klinik = element[1];
+      vet.kullaniciAdi=element[2];
+      vet.vergiNo=element[3];
+      vet.sifre=element[4];
+      vets.add(vet);
+    });
+
+    //   await client.close();
+    return vets;
+  }
 
   Future<List<Vet>> fetchVet() async {
     List<Vet> vets = [];

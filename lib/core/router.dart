@@ -8,6 +8,7 @@ import 'package:vetapp/features/view/treatmentviews/treatment_add_page.dart';
 import 'package:vetapp/features/view/userviews/user_add_page.dart';
 import 'package:vetapp/features/view/userviews/user_details.dart';
 import 'package:vetapp/features/view/userviews/user_edit.dart';
+import 'package:vetapp/features/view/userviews/vet_details.dart';
 import 'package:vetapp/features/view/vaccineviews/vaccine_add_page.dart';
 
 const String homeRoute = '/home';
@@ -21,6 +22,7 @@ const String editProfile = "/edit_profile";
 const String userHome = "/userHome";
 const String vetHome = "/vetHome";
 const String userDetails = "/userDetails";
+const String vetDetails="/vet_details";
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -61,6 +63,11 @@ class Router {
         return MaterialPageRoute(
             builder: (_) => UserDetails(data: settings.arguments));
         break;
+
+      case vetDetails:
+        return MaterialPageRoute(
+            builder: (_) => VetDetails(data: settings.arguments));
+        break;  
     }
   }
 }
