@@ -27,7 +27,7 @@ class Router {
         return MaterialPageRoute(builder: (_) => MyHomePage());
         break;
       case addVaccine:
-        return MaterialPageRoute(builder: (_) => VaccineAdd());
+        return MaterialPageRoute(builder: (_) => VaccineAdd(petID: settings.arguments));
         break;
       case addTreatment:
         return MaterialPageRoute(

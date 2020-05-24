@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vetapp/core/service_locator.dart';
 import 'package:vetapp/features/model/pet.dart';
+import 'package:vetapp/features/service/pet_db.dart';
 
 class PetProvider extends ChangeNotifier {
   PetProvider();
@@ -11,6 +13,11 @@ class PetProvider extends ChangeNotifier {
 
   void addAllPet(List<Pet> list) {
     _petList.addAll(list);
+    notifyListeners();
+  }
+
+  getData(String userName) async {
+    await sl<PetDB>().fetchPet(userName: userName);
     notifyListeners();
   }
 

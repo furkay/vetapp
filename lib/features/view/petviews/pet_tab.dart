@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vetapp/features/view/treatmentviews/treatment_list_page.dart';
+import 'package:vetapp/features/view/vaccineviews/vaccine_list_page.dart';
 
 class PetTab extends StatefulWidget {
   final int petID;
@@ -20,8 +21,8 @@ class _PetTabState extends State<PetTab> {
          ]),
         ),
        body: TabBarView(children: [
-         TreatmentListPage(petID:widget.petID),
-         Icon(Icons.live_tv)
+        TreatmentListPage(petID:widget.petID),
+        VaccineListPage(petID:widget.petID),
          
        ])
       ),);
