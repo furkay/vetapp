@@ -39,23 +39,22 @@ class _PetsCardState extends BaseState<PetsCard> {
         child: Consumer<PetProvider>(
           builder: (context, PetProvider treatProvider, ___) {
             return Container(
-              height: dynamicHeight(0.3),
               color: Colors.blueGrey,
               child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: insetsAll(0.02),
-                    child: Align(
-                      child: FloatingActionButton(
-                        onPressed: () => showDialog(
-                            context: context,
-                            child: Container(
-                                height: dynamicHeight(0.5),
-                                width: dynamicWidth(0.8),
-                                child: petDialog())),
-                        child: Icon(Icons.add),
-                      ),
-                      alignment: Alignment.topRight,
+                    padding: insetsAll(0.01),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text("Pet eklemek için tıklayınız"),
+                        FloatingActionButton(
+                          onPressed: () => showDialog(
+                              context: context,
+                              child: Container(child: petDialog())),
+                          child: Icon(Icons.add),
+                        ),
+                      ],
                     ),
                   ),
                   Center(
@@ -65,14 +64,14 @@ class _PetsCardState extends BaseState<PetsCard> {
                               textAlign: TextAlign.center,
                             )
                           : Container(
-                              height: dynamicHeight(0.15),
+                             height: MediaQuery.of(context).size.height * 0.3,
                               child: ListView.builder(
                                   itemCount: pets.getPetList.length,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       child: Card(
                                         margin: insetSymmetric(
-                                            width: 0.04, height: 0.02),
+                                            width: 0.01, height: 0.005),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,

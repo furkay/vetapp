@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vetapp/core/router.dart';
 import 'package:vetapp/core/service_locator.dart';
 import 'package:vetapp/core/view/base/base_state.dart';
-import 'package:vetapp/features/view/petviews/pets_card.dart';
+
 import 'package:vetapp/features/viewmodel/user_provider.dart';
 
 class UserProfile extends StatefulWidget {
@@ -41,7 +41,7 @@ class _UserProfileState extends BaseState<UserProfile> {
             //buraya profil bilgilerini full çekersin
             //bu pet cartta bu sayfada biyerde olur
             
-            PetsCard(),
+            
             
           ],
         ),

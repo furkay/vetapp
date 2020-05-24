@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             .then((value) {
                           if (value.name.isNotEmpty) {
                             data.setUser(value);
-                            Navigator.of(context).pushNamed(userProfile);
+                            Navigator.of(context).pushNamed(data.getUser.level == "Uye" ? userHome : vetHome);
                           } else
                             print("hata");
                         });
