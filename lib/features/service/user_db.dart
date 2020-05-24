@@ -94,4 +94,27 @@ class UserDB {
     //   await client.close();
     return users;
   }
+
+  Future<List<User>> getUserByName(String name) async {
+    List<User> users = [];
+    var client = await DBConn.db;
+    var rs = await client
+        .query('select * from users where name= "$name" ')
+        .catchError((error) {
+      hata = error.toString();
+    });
+
+    rs.forEach((element) {
+      User user = User();
+      user.name = element[1];
+      user.adress = element[2];
+      user.number = element[3];
+      user.password = element[4];
+      user.level = element[5];
+      user.petID = element[6] ?? null;
+      users.add(user);
+    });
+    //   await client.close();
+    return users;
+  }
 }
