@@ -45,7 +45,7 @@ class Router {
         break;
       case petTab:
         return MaterialPageRoute(
-            builder: (_) => PetTab(petID: settings.arguments));
+            builder: (_) => PetTab(list: settings.arguments,));
         break;
       case userProfile:
         return MaterialPageRoute(builder: (_) => UserProfile());

@@ -3,9 +3,10 @@ import 'package:vetapp/features/view/treatmentviews/treatment_list_page.dart';
 import 'package:vetapp/features/view/vaccineviews/vaccine_list_page.dart';
 
 class PetTab extends StatefulWidget {
-  final int petID;
+ final List list;
+  
 
-  PetTab({@required this.petID});
+  PetTab({@required this.list});
   @override
   _PetTabState createState() => _PetTabState();
 }
@@ -13,6 +14,8 @@ class PetTab extends StatefulWidget {
 class _PetTabState extends State<PetTab> {
   @override
   Widget build(BuildContext context) {
+     int petID=widget.list[0];
+    String userName=widget.list[1];
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -36,8 +39,8 @@ class _PetTabState extends State<PetTab> {
             ]),
           ),
           body: TabBarView(children: [
-            TreatmentListPage(petID: widget.petID),
-            VaccineListPage(petID: widget.petID),
+            TreatmentListPage(petID: petID, userName:userName),
+            VaccineListPage(petID: petID,userName:userName),
           ])),
     );
   }

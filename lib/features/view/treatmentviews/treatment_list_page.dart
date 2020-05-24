@@ -9,7 +9,8 @@ import 'package:vetapp/features/viewmodel/user_provider.dart';
 
 class TreatmentListPage extends StatefulWidget {
   final int petID;
-  TreatmentListPage({@required this.petID});
+  final String userName;
+  TreatmentListPage({@required this.petID, this.userName});
   @override
   _TreatmentListPageState createState() => _TreatmentListPageState();
 }
@@ -51,13 +52,16 @@ class _TreatmentListPageState extends BaseState<TreatmentListPage> {
                 visible: true,
                 child: Padding(
                   padding: insetsAll(0.01),
-                  child: Align(
-                    child: FloatingActionButton(
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(addTreatment, arguments: widget.petID),
-                      child: Icon(Icons.add),
+                  child: Visibility(
+                    visible: widget.userName == null ? false : true,
+                    child: Align(
+                      child: FloatingActionButton(
+                        onPressed: () => Navigator.of(context)
+                            .pushNamed(addTreatment, arguments: widget.petID),
+                        child: Icon(Icons.add),
+                      ),
+                      alignment: Alignment.centerRight,
                     ),
-                    alignment: Alignment.centerRight,
                   ),
                 ),
               ),
@@ -111,17 +115,22 @@ class _TreatmentListPageState extends BaseState<TreatmentListPage> {
                                     flex: 1,
                                     child: Padding(
                                       padding: insetsAll(0.02),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          TreatmentDB().deleteTreatment(
-                                              getTreat.globalTreatments[index]
-                                                  .treatmentName,
-                                              widget.petID);
-                                          sl<TreatProvider>()
-                                              .getData(petID: widget.petID);
-                                        },
-                                        child: CircleAvatar(
-                                          child: Icon(Icons.delete),
+                                      child: Visibility(
+                                        visible: widget.userName == null
+                                            ? false
+                                            : true,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            TreatmentDB().deleteTreatment(
+                                                getTreat.globalTreatments[index]
+                                                    .treatmentName,
+                                                widget.petID);
+                                            sl<TreatProvider>()
+                                                .getData(petID: widget.petID);
+                                          },
+                                          child: CircleAvatar(
+                                            child: Icon(Icons.delete),
+                                          ),
                                         ),
                                       ),
                                     ))

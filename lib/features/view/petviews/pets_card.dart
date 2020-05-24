@@ -12,7 +12,7 @@ import 'package:vetapp/features/viewmodel/user_provider.dart';
 
 class PetsCard extends StatefulWidget {
   final String userName;
-PetsCard({this.userName});
+  PetsCard({this.userName});
   @override
   _PetsCardState createState() => _PetsCardState();
 }
@@ -22,6 +22,7 @@ class _PetsCardState extends BaseState<PetsCard> {
   TextEditingController petYear = TextEditingController();
   @override
   void initState() {
+    print(widget.userName);
     getData();
     super.initState();
   }
@@ -35,7 +36,7 @@ class _PetsCardState extends BaseState<PetsCard> {
     setState(() {
       loading = true;
     });
-    await petsProvider.getData(user.getUser.name);
+    await petsProvider.getData(widget.userName ?? user.getUser.name);
     setState(() {
       loading = false;
     });
@@ -138,25 +139,33 @@ class _PetsCardState extends BaseState<PetsCard> {
                   ),
                   Expanded(
                       flex: 1,
-                      child: Padding(
-                        padding: insetsAll(0.02),
-                        child: GestureDetector(
-                          onTap: () {
-                            PetDB().deletePet(getPets.globalPets[index].petID);
-                            sl<PetProvider>()
-                                .getData(getPets.globalPets[index].userName);
-                            // setState(() {});
-                          },
-                          child: CircleAvatar(
-                            child: Icon(Icons.delete),
+                      child: Visibility(
+                        visible: widget.userName == null ? true : false,
+                        child: Padding(
+                          padding: insetsAll(0.02),
+                          child: GestureDetector(
+                            onTap: () {
+                              PetDB()
+                                  .deletePet(getPets.globalPets[index].petID);
+                              sl<PetProvider>()
+                                  .getData(getPets.globalPets[index].userName);
+                              // setState(() {});
+                            },
+                            child: CircleAvatar(
+                              child: Icon(Icons.delete),
+                            ),
                           ),
                         ),
                       ))
                 ],
               ),
             ),
-            onTap: () => Navigator.of(context)
-                .pushNamed(petTab, arguments: getPets.globalPets[index].petID),
+            onTap: () {
+
+              List list=[getPets.globalPets[index].petID,widget.userName];
+              Navigator.of(context)
+                .pushNamed(petTab, arguments: list);
+            },
           );
         });
   }

@@ -8,8 +8,9 @@ import 'package:vetapp/features/viewmodel/user_provider.dart';
 import 'package:vetapp/features/viewmodel/vaccine_provider.dart';
 
 class VaccineListPage extends StatefulWidget {
+  final String userName;
   final int petID;
-  VaccineListPage({@required this.petID});
+  VaccineListPage({@required this.petID,this.userName});
   @override
   _VaccineListPageState createState() => _VaccineListPageState();
 }
@@ -46,7 +47,7 @@ class _VaccineListPageState extends BaseState<VaccineListPage> {
               child: Column(
             children: <Widget>[
               Visibility(
-                visible: true,
+                visible:widget.userName==null?false:true,
                 //user.getUser.level == "Uye" ? false : true,
                 child: Padding(
                   padding: insetsAll(0.01),
@@ -104,18 +105,21 @@ class _VaccineListPageState extends BaseState<VaccineListPage> {
                                     flex: 1,
                                     child: Padding(
                                       padding: insetsAll(0.02),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          VaccineDB().deleteVaccine(
-                                              getVaccine
-                                                  .globalVaccineList[index]
-                                                  .vaccineName,
-                                              widget.petID);
-                                          sl<VaccineProvider>()
-                                              .getData(petID: widget.petID);
-                                        },
-                                        child: CircleAvatar(
-                                          child: Icon(Icons.delete),
+                                      child: Visibility(
+                                         visible:widget.userName==null?false:true,
+                                                                              child: GestureDetector(
+                                          onTap: () {
+                                            VaccineDB().deleteVaccine(
+                                                getVaccine
+                                                    .globalVaccineList[index]
+                                                    .vaccineName,
+                                                widget.petID);
+                                            sl<VaccineProvider>()
+                                                .getData(petID: widget.petID);
+                                          },
+                                          child: CircleAvatar(
+                                            child: Icon(Icons.delete),
+                                          ),
                                         ),
                                       ),
                                     ))

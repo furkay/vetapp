@@ -136,7 +136,7 @@ class _UserDetailsState extends State<UserDetails> {
                       );
               },
             ),
-            PetsCard(),
+            PetsCard(userName:  widget.data,),
             
           ],
         ),
