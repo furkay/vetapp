@@ -3,6 +3,7 @@ import 'package:vetapp/core/service/db_conn.dart';
 import 'package:vetapp/features/model/pet.dart';
 
 class PetDB {
+  List<Pet> globalPets = [];
   PetDB() {
     createTable();
   }
@@ -27,9 +28,17 @@ class PetDB {
     //   await client.close();
   }
 
-  Future <List<Pet>> fetchPet({@required String userName}) async {
+  Future deletePet(int petID) async {
+    var client = await DBConn.db;
+    await client.query("delete from pets where id=$petID").then((value) =>
+        client.query("delete from treatments where petID=$petID").then(
+            (value) =>
+                client.query("delete from vaccines where petID=$petID")));
+  }
+
+  Future fetchPet({@required String userName}) async {
     //kullanici objesinden çekilecek normalde -id
-    List<Pet> pets=[];
+    List<Pet> pets = [];
     var client = await DBConn.db;
     var results = await client
         .query(
@@ -38,7 +47,6 @@ class PetDB {
       throw onError;
     });
 
-    
     results.forEach((element) {
       Pet pet = Pet();
       pet.petID = element[3];
@@ -49,6 +57,6 @@ class PetDB {
     });
 
     //   await client.close();
-    return pets;
+    globalPets = pets;
   }
 }

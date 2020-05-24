@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vetapp/core/service_locator.dart';
 import 'package:vetapp/core/view/base/base_state.dart';
 import 'package:vetapp/core/view/widget/TextFormField/build_custom_field.dart';
 import 'package:vetapp/core/view/widget/TextFormField/text_form_field_object.dart';
@@ -6,7 +7,11 @@ import 'package:vetapp/features/model/vaccine.dart';
 import 'package:vetapp/features/service/vaccine_db.dart';
 import 'dart:math';
 
+import 'package:vetapp/features/viewmodel/vaccine_provider.dart';
+
 class VaccineAdd extends StatefulWidget {
+  final int petID;
+  VaccineAdd({@required this.petID});
   @override
   _VaccineAddState createState() => _VaccineAddState();
 }
@@ -49,14 +54,27 @@ class _VaccineAddState extends BaseState<VaccineAdd> {
               ),
             ),
             RaisedButton.icon(
-              onPressed: () {
-                int i = Random().nextInt(10000);
-                VaccineDB().addVaccine(Vaccine(
-                    petID: i,
-                    vaccineDate: name.text,
-                    vaccineName: date.text)).then((value) => Navigator.of(context).pop());
+              // onPressed: () {
+               
+              //   VaccineDB().addVaccine(Vaccine(
+              //       petID: i,
+              //       vaccineDate: name.text,
+              //       vaccineName: date.text)).then((value) => Navigator.of(context).pop());
                 
+              // },
+                onPressed: () {
+                VaccineDB()
+                    .addVaccine(Vaccine(
+                        petID:  widget.petID ,
+                        vaccineName: name.text,
+                        vaccineDate: date.text))
+                    .then((value) async {
+                  
+                  sl<VaccineProvider>().getData(petID: widget.petID);
+                  Navigator.of(context).pop();
+                });
               },
+
               icon: Icon(Icons.send),
               label: Text("Kaydet"),
             )
