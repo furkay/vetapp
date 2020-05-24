@@ -74,15 +74,6 @@ class _TreatmentListPageState extends BaseState<TreatmentListPage> {
                     : ListView.builder(
                         itemCount: getTreat.globalTreatments.length,
                         itemBuilder: (context, index) {
-                          // return ListTile(
-                          //   title: Text(
-                          //       getTreat.globalTreatments[index].treatmentName),
-                          //   subtitle: Text(
-                          //       getTreat.globalTreatments[index].medicineNames),
-                          //   leading: Text(
-                          //       getTreat.globalTreatments[index].treatmentDate),
-                          // );
-
                           return Card(
                             margin: insetSymmetric(width: 0.04, height: 0.02),
                             child: Row(
