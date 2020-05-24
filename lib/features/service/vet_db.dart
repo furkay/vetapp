@@ -35,4 +35,24 @@ class VetDB {
     //   await client.close();
     return hata;
   }
+
+  Future<List<Vet>> fetchVet() async {
+    List<Vet> vets = [];
+    var client = await DBConn.db;
+    var results = await client
+        .query('select klinik, kullaniciAdi from vets')
+        .catchError((onError) {
+      throw onError;
+    });
+
+    results.forEach((element) {
+      Vet vet = Vet();
+      vet.klinik = element[0];
+      vet.kullaniciAdi = element[1];
+      vets.add(vet);
+    });
+
+    //   await client.close();
+    return vets;
+  }
 }

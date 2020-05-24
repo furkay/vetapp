@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:vetapp/core/router.dart';
 import 'package:vetapp/core/service_locator.dart';
 import 'package:vetapp/core/view/base/base_state.dart';
 import 'package:vetapp/core/view/widget/TextFormField/build_custom_field.dart';

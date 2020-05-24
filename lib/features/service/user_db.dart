@@ -71,7 +71,27 @@ class UserDB {
       user.petID = element[6] ?? null;
     });
     //   await client.close();
-
     return user;
+  }
+
+  Future<List<User>> fetchUser() async {
+    List<User> users = [];
+    var client = await DBConn.db;
+    var results = await client
+        .query('select name, adress, number from users where level="Uye" ')
+        .catchError((onError) {
+      throw onError;
+    });
+
+    results.forEach((element) {
+      User user = User();
+      user.name = element[0];
+      user.adress = element[1];
+      user.number = element[2];
+      users.add(user);
+    });
+
+    //   await client.close();
+    return users;
   }
 }
