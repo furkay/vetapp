@@ -28,19 +28,6 @@ class _VetHomeState extends State<VetHome> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            /*
-              Container(
-                height: MediaQuery.of(context).size.height * 0.5,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: 15,
-                  itemBuilder: (context, index) {
-                    return buildClinicRows();
-                  },
-                ),
-              ) */
-
             FutureBuilder<List>(
               future: UserDB().fetchUser(),
               initialData: List(),
@@ -54,13 +41,11 @@ class _VetHomeState extends State<VetHome> {
                             child: Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      "İsim",
-                                      textAlign: TextAlign.center,
-                                    ),
+                                  Text(
+                                    "İsim",
+                                    textAlign: TextAlign.center,
                                   ),
                                 ],
                               ),
@@ -87,12 +72,9 @@ class _VetHomeState extends State<VetHome> {
                                                 arguments: snapshot
                                                     .data[position].name);
                                           },
-                                          child: Expanded(
-                                            flex: 1,
-                                            child: Text(
-                                              snapshot.data[position].name,
-                                              textAlign: TextAlign.center,
-                                            ),
+                                          child: Text(
+                                            snapshot.data[position].name,
+                                            textAlign: TextAlign.center,
                                           ),
                                         ),
                                       ],

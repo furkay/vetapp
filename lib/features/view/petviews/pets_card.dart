@@ -11,6 +11,8 @@ import 'package:vetapp/features/viewmodel/pet_provider.dart';
 import 'package:vetapp/features/viewmodel/user_provider.dart';
 
 class PetsCard extends StatefulWidget {
+  final String userName;
+PetsCard({this.userName});
   @override
   _PetsCardState createState() => _PetsCardState();
 }
