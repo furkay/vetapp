@@ -53,12 +53,11 @@ class UserDB {
       user.name = element[1];
       user.adress = element[2];
       user.number = element[3];
-      user.level = element[4];
-      user.password = element[5];
+      user.password = element[4];
+      user.level = element[5];
       user.petID = element[6] ?? null;
     });
     //   await client.close();
-     
 
     return user;
   }
