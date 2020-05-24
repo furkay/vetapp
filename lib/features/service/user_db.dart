@@ -40,14 +40,26 @@ class UserDB {
     return hata;
   }
 
-  Future authControl(String username, String pass) async {
+  Future<User> authControl(String username, String pass) async {
     var client = await DBConn.db;
     var rs = await client
-        .query('select * from users where name= "$username" AND password = "$pass" ')
+        .query(
+            'select * from users where name= "$username" AND password = "$pass" ')
         .catchError((error) {
       hata = error.toString();
     });
+    User user = User();
+    rs.forEach((element) {
+      user.name = element[1];
+      user.adress = element[2];
+      user.number = element[3];
+      user.level = element[4];
+      user.password = element[5];
+      user.petID = element[6] ?? null;
+    });
     //   await client.close();
-    return rs;
+     
+
+    return user;
   }
 }

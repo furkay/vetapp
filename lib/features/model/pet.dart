@@ -2,8 +2,9 @@ class Pet {
   int petID;
   String petType;
   String year;
+  String userName;
 
-  Pet({this.petID, this.petType, this.year});
+  Pet({this.petID, this.petType, this.year,this.userName});
 
   Pet.fromJson(Map<String, dynamic> json) {
     petID = json['petID'];

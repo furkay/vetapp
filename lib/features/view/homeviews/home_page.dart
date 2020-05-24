@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vetapp/core/router.dart';
+import 'package:vetapp/core/service_locator.dart';
 import 'package:vetapp/features/service/user_db.dart';
+import 'package:vetapp/features/view/petviews/pets_card.dart';
+import 'package:vetapp/features/viewmodel/user_provider.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -16,7 +20,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  ChangeNotifierProvider<UserProvider>(
+               create: (_) => UserProvider(),
+              child:Scaffold(
         appBar: AppBar(
           actions: [
             Padding(
@@ -36,17 +42,20 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                buildLoginForm(),
-
+             buildLoginForm()
                 //PetsCard Kullanıcı Profiline koyulacak calistirmak için koydum comment alınabilir
-               PetsCard(),
+                //PetsCard(),
               ],
             ),
           ),
-        ));
+        )),
+               );
+    
   }
 
   Widget buildLoginForm() {
+   var data= sl<UserProvider>();
+   // final userProvider = Provider.of<UserProvider>(context);
     return Center(
       child: Form(
         key: _formKey,
@@ -88,9 +97,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       if (_formKey.currentState.validate()) {
                         UserDB()
                             .authControl(userNameCtrl.text, passwordCtrl.text)
-                            .then((value) => value.isNotEmpty
-                                ? Navigator.of(context).pushNamed(addTreatment)
-                                : print("hata"));
+                            .then((value) {
+                          if (value.name.isNotEmpty) {
+                            data.setUser(value);
+                            Navigator.of(context).pushNamed(userProfile);
+                          } else
+                            print("hata");
+                        });
                       }
                     },
                     child: Text("Giriş Yap"),
