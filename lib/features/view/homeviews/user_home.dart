@@ -46,7 +46,9 @@ class _UserHomeState extends State<UserHome> {
                               color: Color(0xFF003D78),
                               child: Text(
                                 "KLİNİK LİSTESİ",
-                                style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700),
                               )),
                           Container(
                             height: MediaQuery.of(context).size.height * 0.3,
@@ -58,14 +60,13 @@ class _UserHomeState extends State<UserHome> {
                                 return GestureDetector(
                                   onTap: () {
                                     Navigator.of(context).pushNamed(vetDetails,
-                                        arguments: snapshot
-                                            .data[position].klinik);
+                                        arguments:
+                                            snapshot.data[position].klinik);
                                   },
                                   child: Card(
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
-                                        //TODO bura klinik
                                         snapshot.data[position].klinik,
                                         textAlign: TextAlign.center,
                                       ),
