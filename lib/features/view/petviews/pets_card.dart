@@ -48,59 +48,62 @@ class _PetsCardState extends BaseState<PetsCard> {
         value: sl<PetProvider>(),
         child: Consumer<PetProvider>(
           builder: (context, PetProvider petProvider, ___) {
-            return Container(
-              margin: insetSymmetric(width: 0.05, height: 0.02),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Colors.blueGrey,
-              ),
-              height: dynamicHeight(0.5),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            return Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(5),
+                  child: Text(
+                    "Pet Listesi",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Color(0xFFE6E6E6),
+                  ),
+                  child: Column(
                     children: <Widget>[
-                      Spacer(),
-                      Expanded(
-                          child: Padding(
-                            padding: insetVertical(0.03),
-                            child: Text(
-                        "Pet Listesi",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 25 ,color: Colors.white,)
-                      ),
-                          )),
-                      Expanded(
-                        child: Visibility(
-                          visible: user.getUser.level == "Uye" ? true : false,
-                          child: Padding(
-                            padding: insetsAll(0.02),
-                            child: FloatingActionButton(
-                              onPressed: () => showDialog(
-                                  context: context,
-                                  child: Container(
-                                      height: dynamicHeight(0.5),
-                                      width: dynamicWidth(0.8),
-                                      child: petDialog())),
-                              child: Icon(Icons.add),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Spacer(),
+                          Expanded(
+                            child: Visibility(
+                              visible:
+                                  user.getUser.level == "Uye" ? true : false,
+                              child: Padding(
+                                padding: insetsAll(0.02),
+                                child: FloatingActionButton(
+                                  onPressed: () => showDialog(
+                                      context: context,
+                                      child: Container(
+                                          height: dynamicHeight(0.5),
+                                          width: dynamicWidth(0.8),
+                                          child: petDialog())),
+                                  child: Icon(Icons.add),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
+                      Center(
+                          child: getPets.globalPets == null
+                              ? Text(
+                                  "Şu anda hiç evcil hayvanınız yok !!! \n Sağ üstteki butondan ekleyebilirsiniz..",
+                                  textAlign: TextAlign.center,
+                                )
+                              : Container(
+                                  height: dynamicHeight(0.35),
+                                  child: buildListView(),
+                                )),
                     ],
                   ),
-                  Center(
-                      child: getPets.globalPets == null
-                          ? Text(
-                              "Şu anda hiç evcil hayvanınız yok !!! \n Sağ üstteki butondan ekleyebilirsiniz..",
-                              textAlign: TextAlign.center,
-                            )
-                          : Container(
-                              height: dynamicHeight(0.35),
-                              child: buildListView(),
-                            )),
-                ],
-              ),
+                ),
+              ],
             );
           },
         ));
@@ -112,7 +115,7 @@ class _PetsCardState extends BaseState<PetsCard> {
         itemBuilder: (context, index) {
           return GestureDetector(
             child: Card(
-              margin: insetSymmetric(width: 0.04, height: 0.02),
+              margin: insetSymmetric(width: 0.03, height: 0.015),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -124,50 +127,72 @@ class _PetsCardState extends BaseState<PetsCard> {
                   )),
                   Expanded(
                     flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Text(
-                          getPets.globalPets[index].petType,
-                          style: TextStyle(fontSize: 25),
-                          textAlign: TextAlign.center,
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Text(
+                                "Pet Tipi",
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                getPets.globalPets[index].petType,
+                                style: TextStyle(fontSize: 16),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
-                        Text(
-                          getPets.globalPets[index].year + " Yaşında",
-                          style: TextStyle(fontSize: 12),
-                          textAlign: TextAlign.center,
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Text(
+                                "Yaş",
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                getPets.globalPets[index].year,
+                                style: TextStyle(fontSize: 16),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
                   ),
-                  Expanded(
+                  Visibility(
+                    visible: widget.userName == null ? true : false,
+                    child: Expanded(
                       flex: 1,
-                      child: Visibility(
-                        visible: widget.userName == null ? true : false,
-                        child: Padding(
-                          padding: insetsAll(0.02),
-                          child: GestureDetector(
-                            onTap: () {
-                              PetDB()
-                                  .deletePet(getPets.globalPets[index].petID);
-                              sl<PetProvider>()
-                                  .getData(getPets.globalPets[index].userName);
-                              // setState(() {});
-                            },
-                            child: CircleAvatar(
-                              child: Icon(Icons.delete),
-                            ),
+                      child: Padding(
+                        padding: insetsAll(0.02),
+                        child: GestureDetector(
+                          onTap: () {
+                            PetDB().deletePet(getPets.globalPets[index].petID);
+                            sl<PetProvider>()
+                                .getData(getPets.globalPets[index].userName);
+                            // setState(() {});
+                          },
+                          child: CircleAvatar(
+                            child: Icon(Icons.delete),
                           ),
                         ),
-                      ))
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
             onTap: () {
-
-              List list=[getPets.globalPets[index].petID,widget.userName];
-              Navigator.of(context)
-                .pushNamed(petTab, arguments: list);
+              List list = [getPets.globalPets[index].petID, widget.userName];
+              Navigator.of(context).pushNamed(petTab, arguments: list);
             },
           );
         });

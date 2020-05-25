@@ -131,15 +131,17 @@ class _UserDetailsState extends State<UserDetails> {
                                               child: Padding(
                                                 padding: EdgeInsets.all(8.0),
                                                 child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: <Widget>[
-                                                    Icon(
-                                                      Icons.call,
-                                                      size: 16,
-                                                    ),
+                                                    
                                                     Text(
                                                       snapshot.data[position]
                                                           .number,
                                                       textAlign: TextAlign.left,
+                                                    ),
+                                                    Icon(
+                                                      Icons.call,
+                                                      size: 16,
                                                     ),
                                                   ],
                                                 ),
