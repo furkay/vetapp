@@ -25,13 +25,13 @@ class _VetDetailsState extends BaseState<VetDetails> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return ListView.builder(
+                        //TODO 2 aynı klinikte olan tüm doktorlar
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
                             return Row(
                               children: <Widget>[
                                 Card(
                                   child: Container(
-                                      width: dynamicWidth(0.5),
                                       margin: insetsAll(0.02),
                                       child: Center(
                                           child: Text(snapshot.data[index]))),

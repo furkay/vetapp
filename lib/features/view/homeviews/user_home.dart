@@ -65,7 +65,8 @@ class _UserHomeState extends State<UserHome> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
-                                        snapshot.data[position].kullaniciAdi,
+                                        //TODO bura klinik
+                                        snapshot.data[position].klinik,
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
