@@ -27,20 +27,24 @@ class _VetDetailsState extends BaseState<VetDetails> {
                       return ListView.builder(
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
-                            return Column(
+                            return Row(
                               children: <Widget>[
-                                Card(
-                                  child: Container(
-                                    width: dynamicWidth(0.5),
-                                    margin: insetsAll(0.02),
-                                    child: Center(child: Text(snapshot.data[index].kullaniciAdi))) ,
+                                Expanded(
+                                                                  child: Card(
+                                    child: Container(
+                                      
+                                      margin: insetsAll(0.02),
+                                      child: Center(child: Text(snapshot.data[index].kullaniciAdi))) ,
+                                  ),
                                 ),
-                                  Card(
-                                  child: Container(
-                                    width: dynamicWidth(0.5),
-                                    margin: insetsAll(0.02),
-                                    child: Center(child: Text(snapshot.data[index].klinik),)) ,
+                                  Expanded(
+                                                                      child: Card(
+                                    child: Container(
+                                      
+                                      margin: insetsAll(0.02),
+                                      child: Center(child: Text(snapshot.data[index].klinik),)) ,
                                 ),
+                                  ),
 
         
                                 

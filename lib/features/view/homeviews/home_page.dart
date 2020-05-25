@@ -19,99 +19,135 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   @override
   Widget build(BuildContext context) {
-    return  ChangeNotifierProvider<UserProvider>(
-               create: (_) => UserProvider(),
-              child:Scaffold(
-        appBar: AppBar(
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(addUser);
-                },
-                child: Text("Kayıt Ol"),
+    return ChangeNotifierProvider<UserProvider>(
+      create: (_) => UserProvider(),
+      child: Scaffold(
+          body: SingleChildScrollView(
+                      child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Image(
+                    image: AssetImage('assets/pett.png'),
+                    height: 300,
+                  ),
+                  buildLoginForm()
+                ],
               ),
             ),
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-             buildLoginForm()
-                //PetsCard Kullanıcı Profiline koyulacak calistirmak için koydum comment alınabilir
-                //PetsCard(),
-              ],
-            ),
-          ),
-        )),
-               );
-    
+          )),
+    );
   }
 
   Widget buildLoginForm() {
-   var data= sl<UserProvider>();
-   // final userProvider = Provider.of<UserProvider>(context);
-    return Center(
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Icon(Icons.pets, size: 50),
-            TextFormField(
+    var data = sl<UserProvider>();
+    // final userProvider = Provider.of<UserProvider>(context);
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(left: 15),
+            margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+            decoration: BoxDecoration(
+              color: Color(0xFF003D78),
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            child: TextFormField(
               controller: userNameCtrl,
-              decoration:
-                  InputDecoration(hintText: "Kullanıcı adınızı giriniz"),
+              minLines: 1,
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Kullanıcı adı boş bırakılamaz';
                 }
                 return null;
               },
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                labelText: "Kullanıcı Adı",
+                labelStyle: TextStyle(color: Color(0xffEEEEEE)),
+                errorStyle: TextStyle(color: Colors.white70),
+                filled: true,
+                fillColor: Colors.grey.shade50.withAlpha(10),
+                border: InputBorder.none,
+                icon: Icon(Icons.person, color: Colors.white),
+              ),
             ),
-            TextFormField(
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 15),
+            margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+            decoration: BoxDecoration(
+              color: Color(0xFF003D78),
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            child: TextFormField(
               controller: passwordCtrl,
-              decoration: InputDecoration(hintText: "Şifrenizi giriniz"),
+              minLines: 1,
+              obscureText: true,
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Şifre boş bırakılamaz';
                 }
                 return null;
               },
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                labelText: "Şifre",
+                labelStyle: TextStyle(color: Color(0xffEEEEEE)),
+                errorStyle: TextStyle(color: Colors.white70),
+                filled: true,
+                fillColor: Colors.grey.shade50.withAlpha(10),
+                border: InputBorder.none,
+                icon: Icon(Icons.vpn_key, color: Colors.white),
+              ),
             ),
-            Row(
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: RaisedButton(
-                    onPressed: () {
-                      // Validate returns true if the form is valid, or false
-                      // otherwise.
-                      if (_formKey.currentState.validate()) {
-                        UserDB()
-                            .authControl(userNameCtrl.text, passwordCtrl.text)
-                            .then((value) {
-                          if (value.name.isNotEmpty) {
-                            data.setUser(value);
-                            Navigator.of(context).pushNamed(data.getUser.level == "Uye" ? userHome : vetHome);
-                          } else
-                            print("hata");
-                        });
-                      }
-                    },
-                    child: Text("Giriş Yap"),
+                RaisedButton(
+                  color: Color(0xFF71BF44),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(addUser);
+                  },
+                  child: Text(
+                    "Kayıt Ol",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                SizedBox(width: 15),
+                RaisedButton(
+                  color: Color(0xFF003D78),
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      UserDB()
+                          .authControl(userNameCtrl.text, passwordCtrl.text)
+                          .then((value) {
+                        if (value.name.isNotEmpty) {
+                          data.setUser(value);
+                          Navigator.of(context).pushNamed(
+                              data.getUser.level == "Uye"
+                                  ? userHome
+                                  : vetHome);
+                        } else
+                          print("hata");
+                      });
+                    }
+                  },
+                  child: Text(
+                    "Giriş Yap",
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
