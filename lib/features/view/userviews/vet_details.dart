@@ -24,30 +24,17 @@ class _VetDetailsState extends BaseState<VetDetails> {
                   future: VetDB().fetchVetAllData(widget.data),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      // snapshot.data.forEach(
-
-                      // );
-
                       return ListView.builder(
                           //TODO 2 aynı klinikte olan tüm doktorlar
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
-                            List<String> list = snapshot.data[index];
-
                             return Column(
                               children: <Widget>[
                                 Text("Doktor ${index + 1}"),
                                 Container(
                                   height: dynamicHeight(0.4),
                                   //Height vermeyincce hata verdi ona göre tikkat et :D
-                                  child: ListView.builder(
-                                    itemCount: list.length,
-                                    itemBuilder: (context, index) {
-                                      return Card(
-                                        child: Text(list[index]),
-                                      );
-                                    },
-                                  ),
+                                  child: buildListView(snapshot.data[index]),
                                 ),
                               ],
                             );
@@ -60,6 +47,19 @@ class _VetDetailsState extends BaseState<VetDetails> {
           ],
         ),
       ),
+    );
+  }
+
+  ListView buildListView(List list) {
+    
+    return ListView.builder(
+      itemCount: list.length,
+       physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        return Card(
+          child: Text(list[index]),
+        );
+      },
     );
   }
 }

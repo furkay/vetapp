@@ -36,28 +36,37 @@ class VetDB {
     return hata;
   }
 
-  Future<List<List>> fetchVetAllData(String klinikName) async {
-    List<List> klinikVets=[];
-    List<String> vets = [];
+  Future fetchVetAllData(String klinikName) async {
+    List klinikVets = [];
+    // Map<String, String> vets = Map();
     var client = await DBConn.db;
     var results = await client.query(
         """SELECT users.name, vets.klinik, users.adress,users.number,users.level,vets.vergiNo
 FROM users
-INNER JOIN vets ON vets.kullaniciAdi = users.name where klinik='$klinikName' """).catchError((onError) {
+INNER JOIN vets ON vets.kullaniciAdi = users.name  group by users.name, vets.klinik, users.adress,users.number,users.level,vets.vergiNo having klinik='$klinikName' """).catchError((onError) {
       print(onError);
     });
 
     results.forEach((element) {
-      vets.add(element[0]);
-      vets.add(element[1]);
-      vets.add(element[2]);
-      vets.add(element[3]);
-      vets.add(element[4]);
-      vets.add(element[5]);
-      klinikVets.add(vets);
-    });
 
+     // print(element);
+      // vets['name'] = element['name'];
+      // vets['klinik'] = element['klinik'];
+      // vets['adress'] = element['adress'];
+      // vets['number'] = element['number'];
+      // vets['level'] = element['level'];
+      // vets['vergiNo'] = element['vergiNo'];
+
+     
+
+     // print(element.toList());
+       klinikVets.add(element.toList());
+      //index++;
+    });
+    // klinikVets.add(vets);
     //   await client.close();
+    //print(klinikVets);
+  //  print(klinikVets);
     return klinikVets;
   }
 
@@ -67,7 +76,7 @@ INNER JOIN vets ON vets.kullaniciAdi = users.name where klinik='$klinikName' """
     var results = await client
         .query('select DISTINCT klinik from vets')
         .catchError((onError) {
-        print(onError);
+      print(onError);
     });
 
     results.forEach((element) {
