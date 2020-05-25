@@ -53,6 +53,7 @@ class _UserAddState extends BaseState<UserAdd> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        backgroundColor: Color(0xFF003D78),
         title: Text("Kayıt"),
         centerTitle: true,
       ),
@@ -133,6 +134,7 @@ class _UserAddState extends BaseState<UserAdd> {
             ),
             Builder(
               builder: (context) => RaisedButton.icon(
+                color: Color(0xFF003D78),
                 onPressed: () {
                   int i = Random().nextInt(10000);
                   UserDB()
@@ -158,8 +160,8 @@ class _UserAddState extends BaseState<UserAdd> {
                               : null)
                       : print("Kullanici");
                 },
-                icon: Icon(Icons.send),
-                label: Text("Kaydet"),
+                icon: Icon(Icons.send,color: Colors.white,),
+                label: Text("Kaydet",style: TextStyle(color: Colors.white),),
               ),
             ),
           ],

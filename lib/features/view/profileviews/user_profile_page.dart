@@ -16,61 +16,70 @@ class _UserProfileState extends BaseState<UserProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF003D78),
         title: Text("Profil"),
         centerTitle: true,
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: RaisedButton(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: FloatingActionButton(
+              heroTag: "1",
+              backgroundColor: Colors.green,
               onPressed: () {
                 Navigator.pushNamed(context, editProfile);
               },
-              child: Text("Düzenle"),
+              child: Icon(Icons.edit),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: FloatingActionButton(heroTag: "2",
+              backgroundColor: Colors.red,
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, homeRoute, (route) => false);
+              },
+              child: Icon(Icons.exit_to_app),
             ),
           ),
         ],
       ),
-      body: Container(
-          child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            buildProfileRow("Kullanıcı Adı :", "${user.getUser.name}"),
-            buildProfileRow("Adres :", "${user.getUser.adress}"),
-            buildProfileRow("Kayıt Durumu :", "${user.getUser.level}"),
-            buildProfileRow("Numara :", "${user.getUser.number}"),
-            //buraya profil bilgilerini full çekersin
-            //bu pet cartta bu sayfada biyerde olur
-
-            FloatingActionButton(
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, homeRoute, (route) => false);
-                },
-                child: Icon(Icons.exit_to_app))
-          ],
-        ),
-      )),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(25),
+            child: Image(image: AssetImage("assets/user.png"),height: dynamicHeight(0.25),),
+          ),
+          buildProfileRow(Icons.perm_identity, "${user.getUser.name}"),
+          buildProfileRow(Icons.location_on, "${user.getUser.adress}"),
+          buildProfileRow(Icons.equalizer, "${user.getUser.level}"),
+          buildProfileRow(Icons.phone, "${user.getUser.number}"),Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            
+          ),
+        ],
+      ),
     );
   }
 
-  Widget buildProfileRow(String title, String content) {
+  Widget buildProfileRow(IconData iconData, String content) {
     return Container(
-      color: Color(0xFF333333),
+      
       child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 100),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
             border:
-                BorderDirectional(bottom: BorderSide(color: Colors.yellow))),
+                BorderDirectional(bottom: BorderSide(color: Color(0xFFB3B3B3)))),
         padding: EdgeInsets.all(8),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              flex: 1,
-              child: Text("$title", style: TextStyle(color: Colors.white)),
-            ),
-            Expanded(
-              flex: 1,
-              child: Text("$content", style: TextStyle(color: Colors.white)),
-            )
+            Icon(iconData,color: Colors.red,),
+            SizedBox(width: 10),
+            Text("$content", style: TextStyle(color: Colors.black))
           ],
         ),
       ),

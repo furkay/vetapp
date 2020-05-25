@@ -46,27 +46,36 @@ class _VaccineListPageState extends BaseState<VaccineListPage> {
           return Container(
               child: Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Text(
-                    "Uygulanan Aşılar",
-                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  Padding(
-                    padding: insetsAll(0.02),
-                    child: Visibility(
-                      visible: widget.userName == null ? false : true,
-                      //user.getUser.level == "Uye" ? false : true,
-                      child: FloatingActionButton(
-                        onPressed: () => Navigator.of(context)
-                            .pushNamed(addVaccine, arguments: widget.petID),
-                        child: Icon(Icons.add),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Uygulanan Aşılar",
+                          style: TextStyle(
+                              fontSize: 19, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: insetsAll(0.02),
+                      child: Visibility(
+                        visible: widget.userName == null ? false : true,
+                        //user.getUser.level == "Uye" ? false : true,
+                        child: FloatingActionButton(
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(addVaccine, arguments: widget.petID),
+                          child: Icon(Icons.add),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Container(
                 margin: insetSymmetric(width: 0.04, height: 0.02),
@@ -82,7 +91,7 @@ class _VaccineListPageState extends BaseState<VaccineListPage> {
                         children: [
                           Container(
                             padding: EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 2),
+                                horizontal: 8, vertical: 2),
                             margin: insetSymmetric(width: 0.04, height: 0.01),
                             child: Row(
                               children: [
@@ -104,7 +113,11 @@ class _VaccineListPageState extends BaseState<VaccineListPage> {
                                         TextStyle(fontWeight: FontWeight.w700),
                                   ),
                                 ),
-                                Expanded(flex: 1, child: SizedBox()),
+                                Visibility(
+                                    visible:
+                                        widget.userName == null ? false : true,
+                                    child:
+                                        Expanded(flex: 1, child: SizedBox())),
                               ],
                             ),
                           ),
@@ -118,55 +131,62 @@ class _VaccineListPageState extends BaseState<VaccineListPage> {
                                   return Card(
                                     margin: insetSymmetric(
                                         width: 0.04, height: 0.011),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Expanded(
-                                          flex: 1,
-                                          child: Text(
-                                            getVaccine.globalVaccineList[index]
-                                                .vaccineName,
-                                            style: TextStyle(fontSize: 14),
-                                            textAlign: TextAlign.center,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              getVaccine
+                                                  .globalVaccineList[index]
+                                                  .vaccineName,
+                                              style: TextStyle(fontSize: 14),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Text(
-                                            getVaccine.globalVaccineList[index]
-                                                .vaccineDate,
-                                            style: TextStyle(fontSize: 14),
-                                            textAlign: TextAlign.center,
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              getVaccine
+                                                  .globalVaccineList[index]
+                                                  .vaccineDate,
+                                              style: TextStyle(fontSize: 14),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Padding(
-                                            padding: insetsAll(0.01),
-                                            child: Visibility(
-                                              visible: widget.userName == null
-                                                  ? false
-                                                  : true,
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  VaccineDB().deleteVaccine(
-                                                      getVaccine
-                                                          .globalVaccineList[
-                                                              index]
-                                                          .vaccineName,
-                                                      widget.petID);
-                                                  sl<VaccineProvider>().getData(
-                                                      petID: widget.petID);
-                                                },
-                                                child: CircleAvatar(
-                                                  child: Icon(Icons.delete),
+                                          Visibility(
+                                            visible: widget.userName == null
+                                                ? false
+                                                : true,
+                                            child: Expanded(
+                                              flex: 1,
+                                              child: Padding(
+                                                padding: insetsAll(0.02),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    VaccineDB().deleteVaccine(
+                                                        getVaccine
+                                                            .globalVaccineList[
+                                                                index]
+                                                            .vaccineName,
+                                                        widget.petID);
+                                                    sl<VaccineProvider>()
+                                                        .getData(
+                                                            petID:
+                                                                widget.petID);
+                                                  },
+                                                  child: CircleAvatar(
+                                                    child: Icon(Icons.delete),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   );
                                 }),

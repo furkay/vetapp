@@ -50,14 +50,6 @@ class _PetsCardState extends BaseState<PetsCard> {
           builder: (context, PetProvider petProvider, ___) {
             return Column(
               children: [
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Text(
-                    "Pet Listesi",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                  ),
-                ),
                 Container(
                   margin: EdgeInsets.all(12),
                   decoration: BoxDecoration(
@@ -69,8 +61,17 @@ class _PetsCardState extends BaseState<PetsCard> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Spacer(),
-                          Expanded(
+                          Padding(
+                            padding: EdgeInsets.all(15),
+                            child: Text(
+                              "Pet Listesi",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
                             child: Visibility(
                               visible:
                                   user.getUser.level == "Uye" ? true : false,
@@ -115,15 +116,15 @@ class _PetsCardState extends BaseState<PetsCard> {
         itemBuilder: (context, index) {
           return GestureDetector(
             child: Card(
-              margin: insetSymmetric(width: 0.03, height: 0.015),
+              margin: insetSymmetric(width: 0.03, height: 0.011),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Expanded(
                       child: Image.asset(
                     "assets/cat.png",
-                    height: dynamicHeight(0.08),
-                    width: dynamicHeight(0.08),
+                    height: dynamicHeight(0.07),
+                    width: dynamicHeight(0.07),
                   )),
                   Expanded(
                     flex: 2,
@@ -141,7 +142,7 @@ class _PetsCardState extends BaseState<PetsCard> {
                               ),
                               Text(
                                 getPets.globalPets[index].petType,
-                                style: TextStyle(fontSize: 16),
+                                style: TextStyle(fontSize: 15),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -158,7 +159,7 @@ class _PetsCardState extends BaseState<PetsCard> {
                               ),
                               Text(
                                 getPets.globalPets[index].year,
-                                style: TextStyle(fontSize: 16),
+                                style: TextStyle(fontSize: 15),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -172,7 +173,7 @@ class _PetsCardState extends BaseState<PetsCard> {
                     child: Expanded(
                       flex: 1,
                       child: Padding(
-                        padding: insetsAll(0.02),
+                        padding: insetsAll(0.01),
                         child: GestureDetector(
                           onTap: () {
                             PetDB().deletePet(getPets.globalPets[index].petID);

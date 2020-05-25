@@ -13,6 +13,7 @@ class _UserHomeState extends State<UserHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF003D78),
         title: Text("Ana Sayfa"),
         centerTitle: true,
         actions: [
@@ -41,9 +42,12 @@ class _UserHomeState extends State<UserHome> {
                           Container(
                               width: MediaQuery.of(context).size.width,
                               alignment: Alignment.center,
-                              padding: EdgeInsets.all(8),
-                              color: Colors.red,
-                              child: Text("KLİNİKLER")),
+                              padding: EdgeInsets.all(10),
+                              color: Color(0xFF003D78),
+                              child: Text(
+                                "KLİNİK LİSTESİ",
+                                style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700),
+                              )),
                           Container(
                             height: MediaQuery.of(context).size.height * 0.3,
                             child: ListView.builder(
@@ -52,8 +56,10 @@ class _UserHomeState extends State<UserHome> {
                               itemCount: snapshot.data.length,
                               itemBuilder: (_, int position) {
                                 return GestureDetector(
-                                  onTap: (){
-                                    Navigator.of(context).pushNamed(vetDetails, arguments:snapshot.data[position].kullaniciAdi);
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(vetDetails,
+                                        arguments: snapshot
+                                            .data[position].kullaniciAdi);
                                   },
                                   child: Card(
                                     child: Padding(

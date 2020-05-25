@@ -38,23 +38,10 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
+      appBar: AppBar( backgroundColor: Color(0xFF003D78),
         title: Text("Profili Düzenle"),
         centerTitle: true,
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-            child: RaisedButton(
-              color: Colors.orange,
-              child: Text(
-                "Kaydet",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-              onPressed: validateAndUpdate,
-            ),
-          ),
-        ],
+       
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -63,6 +50,11 @@ class _EditProfileState extends State<EditProfile> {
             padding: EdgeInsets.all(8),
             child: Column(
               children: [
+
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Image(image: AssetImage("assets/edit.png"),height: 150,),
+                ),
                 textfieldWidget(_nameControl, "Kullanıcı Adı", Icons.email,
                     false, false, false),
                 textfieldWidget(
@@ -71,6 +63,18 @@ class _EditProfileState extends State<EditProfile> {
                     _numberControl, "Numara", Icons.email, true, false, false),
                 textfieldWidget(
                     _passControl, "Şifre", Icons.vpn_key, true, false, true),
+                    Padding(
+            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+            child: RaisedButton(
+              color: Colors.red,
+              child: Text(
+                "Kaydet",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              onPressed: validateAndUpdate,
+            ),
+          ),
               ],
             ),
           ),
@@ -125,7 +129,7 @@ class _EditProfileState extends State<EditProfile> {
       padding: EdgeInsets.only(left: 15),
       margin: EdgeInsets.all(5),
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: Color(0xFF003D78),
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: TextFormField(
@@ -139,15 +143,16 @@ class _EditProfileState extends State<EditProfile> {
           }
           return null;
         },
+        style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelText: label,
           labelStyle: TextStyle(
-            color: Colors.black87,
+            color: Colors.white,
           ),
           filled: true,
           fillColor: Colors.grey.shade50.withAlpha(10),
           border: InputBorder.none,
-          icon: Icon(iconData, color: Colors.orange),
+          icon: Icon(iconData, color: Colors.white),
         ),
       ),
     );

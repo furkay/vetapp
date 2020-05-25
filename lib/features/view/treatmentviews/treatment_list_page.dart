@@ -47,152 +47,165 @@ class _TreatmentListPageState extends BaseState<TreatmentListPage> {
               child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Text(
-                    "Uygulanan Tedaviler",
-                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  Padding(
-                    padding: insetsAll(0.01),
-                    child: Visibility(
-                      visible: widget.userName == null ? false : true,
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
                       child: Align(
-                        child: FloatingActionButton(
-                          onPressed: () => Navigator.of(context)
-                              .pushNamed(addTreatment, arguments: widget.petID),
-                          child: Icon(Icons.add),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Uygulanan Tedaviler",
+                          style: TextStyle(
+                              fontSize: 19, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
                         ),
-                        alignment: Alignment.centerRight,
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: insetsAll(0.01),
+                      child: Visibility(
+                        visible: widget.userName == null ? false : true,
+                        child: Align(
+                          child: FloatingActionButton(
+                            onPressed: () => Navigator.of(context).pushNamed(
+                                addTreatment,
+                                arguments: widget.petID),
+                            child: Icon(Icons.add),
+                          ),
+                          alignment: Alignment.centerRight,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Container(
                 margin: insetSymmetric(width: 0.04, height: 0.02),
                 decoration: BoxDecoration(
                     color: Color(0xffefefef),
                     borderRadius: BorderRadius.circular(5)),
-                
                 child: loading
                     ? Center(
                         child: CircularProgressIndicator(),
                       )
                     : Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 2),
-                          margin: insetSymmetric(width: 0.04, height: 0.01),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  "Tedavi Adı",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700),
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 2),
+                            margin: insetSymmetric(width: 0.04, height: 0.01),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "Tedavi Adı",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w700),
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  "İlaç Adı",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700),
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "İlaç Adı",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w700),
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  "Tarih",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700),
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "Tarih",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w700),
+                                  ),
                                 ),
-                              ),
-                              Expanded(flex: 1, child: SizedBox()),
-                            ],
+                                Visibility(
+                                    visible:
+                                        widget.userName == null ? false : true,
+                                    child:
+                                        Expanded(flex: 1, child: SizedBox())),
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          height: dynamicHeight(0.5),
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: getTreat.globalTreatments.length,
-                              itemBuilder: (context, index) {
-                                return Card(
-                                  margin: insetSymmetric(
-                                      width: 0.04, height: 0.011),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          flex: 1,
-                                          child: Text(
-                                            getTreat.globalTreatments[index]
-                                                .treatmentName,
-                                            style: TextStyle(fontSize: 14),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Text(
-                                            getTreat.globalTreatments[index]
-                                                .medicineNames,
-                                            style: TextStyle(fontSize: 14),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Text(
-                                            getTreat.globalTreatments[index]
-                                                .treatmentDate,
-                                            style: TextStyle(fontSize: 14),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: widget.userName == null
-                                              ? false
-                                              : true,
-                                          child: Expanded(
+                          Container(
+                            height: dynamicHeight(0.5),
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: getTreat.globalTreatments.length,
+                                itemBuilder: (context, index) {
+                                  return Card(
+                                    margin: insetSymmetric(
+                                        width: 0.04, height: 0.011),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
                                             flex: 1,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                TreatmentDB().deleteTreatment(
-                                                    getTreat
-                                                        .globalTreatments[
-                                                            index]
-                                                        .treatmentName,
-                                                    widget.petID);
-                                                sl<TreatProvider>().getData(
-                                                    petID: widget.petID);
-                                              },
-                                              child: CircleAvatar(
-                                                child: Icon(Icons.delete),
-                                              ),
+                                            child: Text(
+                                              getTreat.globalTreatments[index]
+                                                  .treatmentName,
+                                              style: TextStyle(fontSize: 14),
+                                              textAlign: TextAlign.center,
                                             ),
                                           ),
-                                        )
-                                      ],
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              getTreat.globalTreatments[index]
+                                                  .medicineNames,
+                                              style: TextStyle(fontSize: 14),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              getTreat.globalTreatments[index]
+                                                  .treatmentDate,
+                                              style: TextStyle(fontSize: 14),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: widget.userName == null
+                                                ? false
+                                                : true,
+                                            child: Expanded(
+                                              flex: 1,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  TreatmentDB().deleteTreatment(
+                                                      getTreat
+                                                          .globalTreatments[
+                                                              index]
+                                                          .treatmentName,
+                                                      widget.petID);
+                                                  sl<TreatProvider>().getData(
+                                                      petID: widget.petID);
+                                                },
+                                                child: CircleAvatar(
+                                                  child: Icon(Icons.delete),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              }),
-                        ),
-                      ],
-                    ),
+                                  );
+                                }),
+                          ),
+                        ],
+                      ),
               ),
             ],
           ));

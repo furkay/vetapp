@@ -31,10 +31,11 @@ class _VetDetailsState extends BaseState<VetDetails> {
                               children: <Widget>[
                                 Card(
                                   child: Container(
-                                    width: dynamicWidth(0.5),
-                                    margin: insetsAll(0.02),
-                                    child: Center(child: Text(snapshot.data[index]))) ,
-                                ),                          
+                                      width: dynamicWidth(0.5),
+                                      margin: insetsAll(0.02),
+                                      child: Center(
+                                          child: Text(snapshot.data[index]))),
+                                ),
                               ],
                             );
                           });
