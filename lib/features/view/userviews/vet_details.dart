@@ -24,20 +24,34 @@ class _VetDetailsState extends BaseState<VetDetails> {
                   future: VetDB().fetchVetAllData(widget.data),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
+                      // snapshot.data.forEach(
+
+                      // );
+
                       return ListView.builder(
-                        //TODO 2 aynı klinikte olan tüm doktorlar
+                          //TODO 2 aynı klinikte olan tüm doktorlar
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
-                            return Row(
+                            List<String> list = snapshot.data[index];
+
+                            return Column(
                               children: <Widget>[
-                                Card(
-                                  child: Container(
-                                      margin: insetsAll(0.02),
-                                      child: Center(
-                                          child: Text(snapshot.data[index]))),
+                                Text("Doktor ${index + 1}"),
+                                Container(
+                                  height: dynamicHeight(0.4),
+                                  //Height vermeyincce hata verdi ona göre tikkat et :D
+                                  child: ListView.builder(
+                                    itemCount: list.length,
+                                    itemBuilder: (context, index) {
+                                      return Card(
+                                        child: Text(list[index]),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ],
                             );
+                            //   return Container();
                           });
                     } else
                       return CircularProgressIndicator();

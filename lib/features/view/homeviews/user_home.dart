@@ -59,7 +59,7 @@ class _UserHomeState extends State<UserHome> {
                                   onTap: () {
                                     Navigator.of(context).pushNamed(vetDetails,
                                         arguments: snapshot
-                                            .data[position].kullaniciAdi);
+                                            .data[position].klinik);
                                   },
                                   child: Card(
                                     child: Padding(

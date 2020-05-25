@@ -36,13 +36,14 @@ class VetDB {
     return hata;
   }
 
-  Future<List<String>> fetchVetAllData(String userName) async {
+  Future<List<List>> fetchVetAllData(String klinikName) async {
+    List<List> klinikVets=[];
     List<String> vets = [];
     var client = await DBConn.db;
     var results = await client.query(
         """SELECT users.name, vets.klinik, users.adress,users.number,users.level,vets.vergiNo
 FROM users
-INNER JOIN vets ON vets.kullaniciAdi = users.name where name='$userName' """).catchError((onError) {
+INNER JOIN vets ON vets.kullaniciAdi = users.name where klinik='$klinikName' """).catchError((onError) {
       print(onError);
     });
 
@@ -53,10 +54,11 @@ INNER JOIN vets ON vets.kullaniciAdi = users.name where name='$userName' """).ca
       vets.add(element[3]);
       vets.add(element[4]);
       vets.add(element[5]);
+      klinikVets.add(vets);
     });
 
     //   await client.close();
-    return vets;
+    return klinikVets;
   }
 
   Future<List<Vet>> fetchVet() async {
