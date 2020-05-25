@@ -30,6 +30,7 @@ class _VetDetailsState extends BaseState<VetDetails> {
                     if (snapshot.hasData) {
                       return ListView.builder(
                           shrinkWrap: true,
+                          physics: ScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
@@ -90,6 +91,7 @@ class _VetDetailsState extends BaseState<VetDetails> {
       throw 'Could not launch $url';
     }
   }
+
   ListView buildListView(List list) {
     return ListView.builder(
       itemCount: list.length,
@@ -116,7 +118,7 @@ class _VetDetailsState extends BaseState<VetDetails> {
                         onTap: () {
                           _launchCaller("${list[index]}");
                         },
-                                              child: Visibility(
+                        child: Visibility(
                           visible: index == 3 ? true : false,
                           child: Icon(
                             Icons.phone,
