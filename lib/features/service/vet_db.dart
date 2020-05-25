@@ -65,7 +65,7 @@ INNER JOIN vets ON vets.kullaniciAdi = users.name where klinik='$klinikName' """
     List<Vet> vets = [];
     var client = await DBConn.db;
     var results = await client
-        .query('select klinik, kullaniciAdi from vets')
+        .query('select DISTINCT  klinik, kullaniciAdi from vets')
         .catchError((onError) {
       throw onError;
     });
