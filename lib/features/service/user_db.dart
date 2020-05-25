@@ -8,7 +8,6 @@ class UserDB {
   Future createTable() async {
     var client = await DBConn.db;
     client.query("""CREATE TABLE if not exists users (
-      id int NOT NULL , 
       name varchar(255) PRIMARY KEY, 
       adress varchar(255),
       number varchar(11),

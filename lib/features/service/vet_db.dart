@@ -38,35 +38,19 @@ class VetDB {
 
   Future fetchVetAllData(String klinikName) async {
     List klinikVets = [];
-    // Map<String, String> vets = Map();
+
     var client = await DBConn.db;
     var results = await client.query(
         """SELECT users.name, vets.klinik, users.adress,users.number,users.level,vets.vergiNo
 FROM users
 INNER JOIN vets ON vets.kullaniciAdi = users.name  group by users.name, vets.klinik, users.adress,users.number,users.level,vets.vergiNo having klinik='$klinikName' """).catchError((onError) {
-      print(onError);
+      throw onError;
     });
 
     results.forEach((element) {
-
-     // print(element);
-      // vets['name'] = element['name'];
-      // vets['klinik'] = element['klinik'];
-      // vets['adress'] = element['adress'];
-      // vets['number'] = element['number'];
-      // vets['level'] = element['level'];
-      // vets['vergiNo'] = element['vergiNo'];
-
-     
-
-     // print(element.toList());
-       klinikVets.add(element.toList());
-      //index++;
+      klinikVets.add(element.toList());
     });
-    // klinikVets.add(vets);
-    //   await client.close();
-    //print(klinikVets);
-  //  print(klinikVets);
+
     return klinikVets;
   }
 
