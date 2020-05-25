@@ -47,24 +47,22 @@ class _VaccineListPageState extends BaseState<VaccineListPage> {
               child: Column(
             children: <Widget>[
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Spacer(),
-                  Expanded(
-                      child: Text(
+                  Text(
                     "Uygulanan Aşılar",
-                    style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,),),
-                  Expanded(
-                    child: Padding(
-                      padding: insetsAll(0.02),
-                      child: Visibility(
-                        visible: widget.userName == null ? false : true,
-                        //user.getUser.level == "Uye" ? false : true,
-                        child: FloatingActionButton(
-                          onPressed: () => Navigator.of(context)
-                              .pushNamed(addVaccine, arguments: widget.petID),
-                          child: Icon(Icons.add),
-                        ),
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  Padding(
+                    padding: insetsAll(0.02),
+                    child: Visibility(
+                      visible: widget.userName == null ? false : true,
+                      //user.getUser.level == "Uye" ? false : true,
+                      child: FloatingActionButton(
+                        onPressed: () => Navigator.of(context)
+                            .pushNamed(addVaccine, arguments: widget.petID),
+                        child: Icon(Icons.add),
                       ),
                     ),
                   ),

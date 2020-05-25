@@ -49,34 +49,43 @@ class _TreatmentAddState extends BaseState<TreatmentAdd> {
     //end
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+         backgroundColor: Color(0xFF003D78),
+         title: Text("Tedavi Ekle"),
+         centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              height: dynamicHeight(0.5),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: children,
-              ),
+             Padding(
+              padding: const EdgeInsets.all(25),
+              child: Image(image: AssetImage("assets/tret.png"),height: dynamicHeight(.2),),
             ),
-            RaisedButton.icon(
-              onPressed: () {
-                TreatmentDB()
-                    .addTreatment(Treatment(
-                        medicineNames: medicine.text,
-                        petID: widget.petID,
-                        treatmentDate: date.text,
-                        treatmentName: treatmentName.text))
-                    .then((value) async {
-                  // await Provider.of<TreatProvider>(context)
-                  //     .getData(petID: widget.petID);
-                  sl<TreatProvider>().getData(petID: widget.petID);
-                  Navigator.of(context).pop();
-                });
-              },
-              icon: Icon(Icons.send),
-              label: Text("Kaydet"),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: children,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(25),
+              child: RaisedButton.icon(
+               color: Color(0xFF003D78),
+                onPressed: () {
+                  TreatmentDB()
+                      .addTreatment(Treatment(
+                          medicineNames: medicine.text,
+                          petID: widget.petID,
+                          treatmentDate: date.text,
+                          treatmentName: treatmentName.text))
+                      .then((value) async {
+                    // await Provider.of<TreatProvider>(context)
+                    //     .getData(petID: widget.petID);
+                    sl<TreatProvider>().getData(petID: widget.petID);
+                    Navigator.of(context).pop();
+                  });
+                },
+                icon: Icon(Icons.send,color: Colors.white,),
+                label: Text("Kaydet",style: TextStyle(color: Colors.white)),
+              ),
             ),
           ],
         ),

@@ -47,29 +47,24 @@ class _TreatmentListPageState extends BaseState<TreatmentListPage> {
               child: Column(
             children: <Widget>[
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Spacer(),
-                  Expanded(
-                    child: Text(
-                      "Uygulanan Uygulamalar",
-                      style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
+                  Text(
+                    "Uygulanan Uygulamalar",
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: insetsAll(0.01),
-                      child: Visibility(
-                        visible: widget.userName == null ? false : true,
-                        child: Align(
-                          child: FloatingActionButton(
-                            onPressed: () => Navigator.of(context).pushNamed(
-                                addTreatment,
-                                arguments: widget.petID),
-                            child: Icon(Icons.add),
-                          ),
-                          alignment: Alignment.centerRight,
+                  Padding(
+                    padding: insetsAll(0.01),
+                    child: Visibility(
+                      visible: widget.userName == null ? false : true,
+                      child: Align(
+                        child: FloatingActionButton(
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(addTreatment, arguments: widget.petID),
+                          child: Icon(Icons.add),
                         ),
+                        alignment: Alignment.centerRight,
                       ),
                     ),
                   ),

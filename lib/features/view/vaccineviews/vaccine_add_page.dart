@@ -38,40 +38,42 @@ class _VaccineAddState extends BaseState<VaccineAdd> {
     //end
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF003D78),
+        centerTitle: true,
+        title: Text("Aşı Ekle"),
+      ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+
           children: <Widget>[
-            Container(
-              height: dynamicHeight(0.5),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: children,
-              ),
+            Padding(
+              padding: const EdgeInsets.all(25),
+              child: Image(image: AssetImage("assets/vaccine.png"),height: dynamicHeight(.2),),
             ),
-            RaisedButton.icon(
-              // onPressed: () {
-
-              //   VaccineDB().addVaccine(Vaccine(
-              //       petID: i,
-              //       vaccineDate: name.text,
-              //       vaccineName: date.text)).then((value) => Navigator.of(context).pop());
-
-              // },
-              onPressed: () {
-                VaccineDB()
-                    .addVaccine(Vaccine(
-                        petID: widget.petID,
-                        vaccineName: name.text,
-                        vaccineDate: date.text))
-                    .then((value) async {
-                  sl<VaccineProvider>().getData(petID: widget.petID);
-                  Navigator.of(context).pop();
-                });
-              },
-
-              icon: Icon(Icons.send),
-              label: Text("Kaydet"),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: children,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(25),
+              child: RaisedButton.icon(
+                color: Color(0xFF003D78),
+                onPressed: () {
+                  VaccineDB()
+                      .addVaccine(Vaccine(
+                          petID: widget.petID,
+                          vaccineName: name.text,
+                          vaccineDate: date.text))
+                      .then((value) async {
+                    sl<VaccineProvider>().getData(petID: widget.petID);
+                    Navigator.of(context).pop();
+                  });
+                },
+                icon: Icon(Icons.send, color: Colors.white),
+                label: Text("Kaydet", style: TextStyle(color: Colors.white)),
+              ),
             )
           ],
         ),

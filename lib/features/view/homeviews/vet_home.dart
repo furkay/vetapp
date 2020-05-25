@@ -12,7 +12,8 @@ class _VetHomeState extends State<VetHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Ana Sayfa"),
+        backgroundColor: Color(0xFF003D78),
+        title: Text("Üye Listesi"),
         centerTitle: true,
         actions: [
           Padding(
@@ -36,48 +37,64 @@ class _VetHomeState extends State<VetHome> {
                     ? Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Card(
-                            color: Colors.red.shade200,
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "İsim",
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
                           Container(
                             height: MediaQuery.of(context).size.height,
+                            padding: EdgeInsets.all(10),
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               itemCount: snapshot.data.length,
                               itemBuilder: (_, int position) {
                                 return GestureDetector(
-                                   onTap: () {
-                                            Navigator.of(context).pushNamed(
-                                                userDetails,
-                                                arguments: snapshot
-                                                    .data[position].name);
-                                          },
-                                                                  child: Card(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                           Text(
-                                              snapshot.data[position].name,
-                                              textAlign: TextAlign.center,
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(userDetails,
+                                        arguments:
+                                            snapshot.data[position].name);
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    color: Colors.white,
+                                   
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(8),
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.red,
+                                              ),
+                                              child: Text(
+                                                "${position + 1}",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
                                             ),
-                                        ],
-                                      ),
+                                            Expanded(
+                                              child: Container(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      snapshot
+                                                          .data[position].name,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .subtitle1,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Divider(
+                                            color:
+                                                Colors.black.withOpacity(0.7)),
+                                      ],
                                     ),
                                   ),
                                 );

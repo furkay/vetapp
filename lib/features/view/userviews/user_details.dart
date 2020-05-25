@@ -26,6 +26,7 @@ class _UserDetailsState extends State<UserDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF003D78),
         title: Text("Üye Profili"),
         centerTitle: true,
       ),
