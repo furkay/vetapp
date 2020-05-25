@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:vetapp/core/service/db_conn.dart';
 import 'package:vetapp/features/model/vet.dart';
 
@@ -36,31 +35,29 @@ class VetDB {
     //   await client.close();
     return hata;
   }
-  
-  Future<List<Vet>> fetchVetAllData(String userName) async {
-    List<Vet> vets = [];
+
+  Future<List<String>> fetchVetAllData(String userName) async {
+    List<String> vets = [];
     var client = await DBConn.db;
-    var results = await client
-        .query('select * from vets where kullaniciAdi="$userName"')
-        .catchError((onError) {
-      throw onError;
+    var results = await client.query(
+        """SELECT users.name, vets.klinik, users.adress,users.number,users.level,vets.vergiNo
+FROM users
+INNER JOIN vets ON vets.kullaniciAdi = users.name where name='$userName' """).catchError((onError) {
+      print(onError);
     });
 
     results.forEach((element) {
-      Vet vet = Vet();
-      vet.vetID = element[0];
-      vet.klinik = element[1];
-      vet.kullaniciAdi=element[2];
-      vet.vergiNo=element[3];
-      vet.sifre=element[4];
-      vets.add(vet);
+      vets.add(element[0]);
+      vets.add(element[1]);
+      vets.add(element[2]);
+      vets.add(element[3]);
+      vets.add(element[4]);
+      vets.add(element[5]);
     });
 
     //   await client.close();
     return vets;
   }
-
- 
 
   Future<List<Vet>> fetchVet() async {
     List<Vet> vets = [];

@@ -29,25 +29,12 @@ class _VetDetailsState extends BaseState<VetDetails> {
                           itemBuilder: (context, index) {
                             return Row(
                               children: <Widget>[
-                                Expanded(
-                                                                  child: Card(
-                                    child: Container(
-                                      
-                                      margin: insetsAll(0.02),
-                                      child: Center(child: Text(snapshot.data[index].kullaniciAdi))) ,
-                                  ),
-                                ),
-                                  Expanded(
-                                                                      child: Card(
-                                    child: Container(
-                                      
-                                      margin: insetsAll(0.02),
-                                      child: Center(child: Text(snapshot.data[index].klinik),)) ,
-                                ),
-                                  ),
-
-        
-                                
+                                Card(
+                                  child: Container(
+                                    width: dynamicWidth(0.5),
+                                    margin: insetsAll(0.02),
+                                    child: Center(child: Text(snapshot.data[index]))) ,
+                                ),                          
                               ],
                             );
                           });

@@ -124,20 +124,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 RaisedButton(
                   color: Color(0xFF003D78),
                   onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      UserDB()
-                          .authControl(userNameCtrl.text, passwordCtrl.text)
-                          .then((value) {
-                        if (value.name.isNotEmpty) {
-                          data.setUser(value);
-                          Navigator.of(context).pushNamed(
-                              data.getUser.level == "Uye"
-                                  ? userHome
-                                  : vetHome);
-                        } else
-                          print("hata");
-                      });
-                    }
+                   if (_formKey.currentState.validate()) {
+                        UserDB()
+                            .authControl(userNameCtrl.text, passwordCtrl.text)
+                            .then((value) {
+                          if (value.name.isNotEmpty) {
+                            data.setUser(value);
+                          //  Navigator.of(context).pushNamed(data.getUser.level == "Uye" ? userHome : vetHome);
+                            Navigator.pushNamedAndRemoveUntil(context, data.getUser.level == "Uye" ? userHome : vetHome, (route) => false);
+                          } else
+                            print("hata");
+                        });
+                      }
                   },
                   child: Text(
                     "Giriş Yap",

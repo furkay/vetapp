@@ -58,26 +58,26 @@ class _VetHomeState extends State<VetHome> {
                               shrinkWrap: true,
                               itemCount: snapshot.data.length,
                               itemBuilder: (_, int position) {
-                                return Card(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
+                                return GestureDetector(
+                                   onTap: () {
                                             Navigator.of(context).pushNamed(
                                                 userDetails,
                                                 arguments: snapshot
                                                     .data[position].name);
                                           },
-                                          child: Text(
-                                            snapshot.data[position].name,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      ],
+                                                                  child: Card(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                           Text(
+                                              snapshot.data[position].name,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );

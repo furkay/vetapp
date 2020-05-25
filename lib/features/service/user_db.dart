@@ -8,13 +8,12 @@ class UserDB {
   Future createTable() async {
     var client = await DBConn.db;
     client.query("""CREATE TABLE if not exists users (
-      id int NOT NULL, 
+      id int NOT NULL , 
       name varchar(255) PRIMARY KEY, 
       adress varchar(255),
       number varchar(11),
       password varchar(255),
-      level varchar(15),
-      petID int
+      level varchar(15)
        )""");
 
     //await client.close();
@@ -25,14 +24,13 @@ class UserDB {
     var client = await DBConn.db;
 
     await client.query(
-        'insert into users (name, adress, number,level,password,petID) values (?,?,?,?,?,?)',
+        'insert into users (name, adress, number,level,password) values (?,?,?,?,?)',
         [
           user.name,
           user.adress,
           user.number,
           user.level,
           user.password,
-          user.petID
         ]).catchError((error) {
       hata = error.toString();
     });
@@ -68,7 +66,6 @@ class UserDB {
       user.number = element[3];
       user.password = element[4];
       user.level = element[5];
-      user.petID = element[6] ?? null;
     });
     //   await client.close();
     return user;
@@ -111,7 +108,6 @@ class UserDB {
       user.number = element[3];
       user.password = element[4];
       user.level = element[5];
-      user.petID = element[6] ?? null;
       users.add(user);
     });
     //   await client.close();
