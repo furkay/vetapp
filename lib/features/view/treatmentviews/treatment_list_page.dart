@@ -46,24 +46,34 @@ class _TreatmentListPageState extends BaseState<TreatmentListPage> {
           return Container(
               child: Column(
             children: <Widget>[
-              Visibility(
-                //visible: user.getUser.level == "Uye" ? false : true,
-
-                visible: true,
-                child: Padding(
-                  padding: insetsAll(0.01),
-                  child: Visibility(
-                    visible: widget.userName == null ? false : true,
-                    child: Align(
-                      child: FloatingActionButton(
-                        onPressed: () => Navigator.of(context)
-                            .pushNamed(addTreatment, arguments: widget.petID),
-                        child: Icon(Icons.add),
-                      ),
-                      alignment: Alignment.centerRight,
+              Row(
+                children: <Widget>[
+                  Spacer(),
+                  Expanded(
+                    child: Text(
+                      "Uygulanan Uygulamalar",
+                      style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                ),
+                  Expanded(
+                    child: Padding(
+                      padding: insetsAll(0.01),
+                      child: Visibility(
+                        visible: widget.userName == null ? false : true,
+                        child: Align(
+                          child: FloatingActionButton(
+                            onPressed: () => Navigator.of(context).pushNamed(
+                                addTreatment,
+                                arguments: widget.petID),
+                            child: Icon(Icons.add),
+                          ),
+                          alignment: Alignment.centerRight,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Container(
                 margin: insetSymmetric(width: 0.04, height: 0.02),

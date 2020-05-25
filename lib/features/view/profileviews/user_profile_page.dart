@@ -40,9 +40,13 @@ class _UserProfileState extends BaseState<UserProfile> {
             buildProfileRow("Numara :", "${user.getUser.number}"),
             //buraya profil bilgilerini full çekersin
             //bu pet cartta bu sayfada biyerde olur
-            
-            
-            
+
+            FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, homeRoute, (route) => false);
+                },
+                child: Icon(Icons.exit_to_app))
           ],
         ),
       )),

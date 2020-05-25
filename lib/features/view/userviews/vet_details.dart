@@ -33,17 +33,8 @@ class _VetDetailsState extends BaseState<VetDetails> {
                                   child: Container(
                                     width: dynamicWidth(0.5),
                                     margin: insetsAll(0.02),
-                                    child: Center(child: Text(snapshot.data[index].kullaniciAdi))) ,
-                                ),
-                                  Card(
-                                  child: Container(
-                                    width: dynamicWidth(0.5),
-                                    margin: insetsAll(0.02),
-                                    child: Center(child: Text(snapshot.data[index].klinik),)) ,
-                                ),
-
-        
-                                
+                                    child: Center(child: Text(snapshot.data[index]))) ,
+                                ),                          
                               ],
                             );
                           });

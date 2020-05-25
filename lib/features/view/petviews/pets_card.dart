@@ -62,11 +62,14 @@ class _PetsCardState extends BaseState<PetsCard> {
                     children: <Widget>[
                       Spacer(),
                       Expanded(
-                          child: Text(
+                          child: Padding(
+                            padding: insetVertical(0.03),
+                            child: Text(
                         "Pet Listesi",
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 25),
-                      )),
+                        style: TextStyle(fontSize: 25 ,color: Colors.white,)
+                      ),
+                          )),
                       Expanded(
                         child: Visibility(
                           visible: user.getUser.level == "Uye" ? true : false,

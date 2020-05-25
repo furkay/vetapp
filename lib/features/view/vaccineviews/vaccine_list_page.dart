@@ -10,7 +10,7 @@ import 'package:vetapp/features/viewmodel/vaccine_provider.dart';
 class VaccineListPage extends StatefulWidget {
   final String userName;
   final int petID;
-  VaccineListPage({@required this.petID,this.userName});
+  VaccineListPage({@required this.petID, this.userName});
   @override
   _VaccineListPageState createState() => _VaccineListPageState();
 }
@@ -46,20 +46,29 @@ class _VaccineListPageState extends BaseState<VaccineListPage> {
           return Container(
               child: Column(
             children: <Widget>[
-              Visibility(
-                visible:widget.userName==null?false:true,
-                //user.getUser.level == "Uye" ? false : true,
-                child: Padding(
-                  padding: insetsAll(0.01),
-                  child: Align(
-                    child: FloatingActionButton(
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(addVaccine, arguments: widget.petID),
-                      child: Icon(Icons.add),
+              Row(
+                children: <Widget>[
+                  Spacer(),
+                  Expanded(
+                      child: Text(
+                    "Uygulanan Aşılar",
+                    style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,),),
+                  Expanded(
+                    child: Padding(
+                      padding: insetsAll(0.02),
+                      child: Visibility(
+                        visible: widget.userName == null ? false : true,
+                        //user.getUser.level == "Uye" ? false : true,
+                        child: FloatingActionButton(
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(addVaccine, arguments: widget.petID),
+                          child: Icon(Icons.add),
+                        ),
+                      ),
                     ),
-                    alignment: Alignment.centerRight,
                   ),
-                ),
+                ],
               ),
               Container(
                 margin: insetSymmetric(width: 0.04, height: 0.02),
@@ -106,8 +115,10 @@ class _VaccineListPageState extends BaseState<VaccineListPage> {
                                     child: Padding(
                                       padding: insetsAll(0.02),
                                       child: Visibility(
-                                         visible:widget.userName==null?false:true,
-                                                                              child: GestureDetector(
+                                        visible: widget.userName == null
+                                            ? false
+                                            : true,
+                                        child: GestureDetector(
                                           onTap: () {
                                             VaccineDB().deleteVaccine(
                                                 getVaccine

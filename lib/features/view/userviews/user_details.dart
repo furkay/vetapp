@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vetapp/features/service/user_db.dart';
 import 'package:vetapp/features/view/petviews/pets_card.dart';
 
@@ -12,6 +13,15 @@ class UserDetails extends StatefulWidget {
 }
 
 class _UserDetailsState extends State<UserDetails> {
+  _launchCaller(String _url) async {
+    String url = "tel:$_url";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +31,6 @@ class _UserDetailsState extends State<UserDetails> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          
           children: [
             FutureBuilder<List>(
               future: UserDB().getUserByName(widget.data),
@@ -111,13 +120,28 @@ class _UserDetailsState extends State<UserDetails> {
                                           ),
                                         ),
                                         Expanded(
-                                          child: Card(
-                                            color: Colors.green.shade300,
-                                            child: Padding(
-                                              padding: EdgeInsets.all(8.0),
-                                              child: Text(
-                                                snapshot.data[position].number,
-                                                textAlign: TextAlign.left,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              _launchCaller(snapshot
+                                                  .data[position].number);
+                                            },
+                                            child: Card(
+                                              color: Colors.green.shade300,
+                                              child: Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Icon(
+                                                      Icons.call,
+                                                      size: 16,
+                                                    ),
+                                                    Text(
+                                                      snapshot.data[position]
+                                                          .number,
+                                                      textAlign: TextAlign.left,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -136,8 +160,9 @@ class _UserDetailsState extends State<UserDetails> {
                       );
               },
             ),
-            PetsCard(userName:  widget.data,),
-            
+            PetsCard(
+              userName: widget.data,
+            ),
           ],
         ),
       ),
