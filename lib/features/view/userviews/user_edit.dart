@@ -55,12 +55,12 @@ class _EditProfileState extends State<EditProfile> {
                   padding: const EdgeInsets.all(15.0),
                   child: Image(image: AssetImage("assets/edit.png"),height: 150,),
                 ),
-                textfieldWidget(_nameControl, "Kullanıcı Adı", Icons.email,
+                textfieldWidget(_nameControl, "Kullanıcı Adı", Icons.person,
                     false, false, false),
                 textfieldWidget(
                     _adressControl, "Adres", Icons.email, true, false, false),
                 textfieldWidget(
-                    _numberControl, "Numara", Icons.email, true, false, false),
+                    _numberControl, "Numara", Icons.phone, true, false, false),
                 textfieldWidget(
                     _passControl, "Şifre", Icons.vpn_key, true, false, true),
                     Padding(

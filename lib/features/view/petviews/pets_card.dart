@@ -92,15 +92,28 @@ class _PetsCardState extends BaseState<PetsCard> {
                         ],
                       ),
                       Center(
-                          child: getPets.globalPets == null
-                              ? Text(
-                                  "Şu anda hiç evcil hayvanınız yok !!! \n Sağ üstteki butondan ekleyebilirsiniz..",
-                                  textAlign: TextAlign.center,
-                                )
-                              : Container(
-                                  height: dynamicHeight(0.35),
-                                  child: buildListView(),
-                                )),
+                        child: getPets.globalPets.isEmpty
+                            ? Container(
+                                height: dynamicHeight(0.35),
+                               
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Image(image: AssetImage("assets/pets.png"),height: 100),
+                                    
+                                    Text( user.getUser.level == "Uye" ?
+                                      "\nŞu anda kayıtlı evcil hayvanınız yok !!! \n Sağ üstteki butondan ekleyebilirsiniz.." : "\n Kullanıcının kayıtlı bir evcil hayvanı yok.",
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context).textTheme.subtitle1,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Container(
+                                height: dynamicHeight(0.35),
+                                child: buildListView(),
+                              ),
+                      ),
                     ],
                   ),
                 ),
@@ -122,7 +135,7 @@ class _PetsCardState extends BaseState<PetsCard> {
                 children: <Widget>[
                   Expanded(
                       child: Image.asset(
-                    "assets/cat.png",
+                    "assets/pets.png",
                     height: dynamicHeight(0.07),
                     width: dynamicHeight(0.07),
                   )),
@@ -137,7 +150,7 @@ class _PetsCardState extends BaseState<PetsCard> {
                               Text(
                                 "Pet Tipi",
                                 style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w600),
+                                    fontSize: 14, fontWeight: FontWeight.w600),
                                 textAlign: TextAlign.center,
                               ),
                               Text(
@@ -152,9 +165,9 @@ class _PetsCardState extends BaseState<PetsCard> {
                           child: Column(
                             children: [
                               Text(
-                                "Yaş",
+                                "Doğum Tarihi",
                                 style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w600),
+                                    fontSize: 14, fontWeight: FontWeight.w600),
                                 textAlign: TextAlign.center,
                               ),
                               Text(

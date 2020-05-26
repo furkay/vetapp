@@ -60,11 +60,11 @@ class UserDB {
     });
     User user = User();
     rs.forEach((element) {
-      user.name = element[1];
-      user.adress = element[2];
-      user.number = element[3];
-      user.password = element[4];
-      user.level = element[5];
+      user.name = element[0];
+      user.adress = element[1];
+      user.number = element[2];
+      user.password = element[3];
+      user.level = element[4];
     });
     //   await client.close();
     return user;
@@ -102,11 +102,11 @@ class UserDB {
 
     rs.forEach((element) {
       User user = User();
-      user.name = element[1];
-      user.adress = element[2];
-      user.number = element[3];
-      user.password = element[4];
-      user.level = element[5];
+      user.name = element[0];
+      user.adress = element[1];
+      user.number = element[2];
+      user.password = element[3];
+      user.level = element[4];
       users.add(user);
     });
     //   await client.close();

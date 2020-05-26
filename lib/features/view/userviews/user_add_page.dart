@@ -146,7 +146,7 @@ class _UserAddState extends BaseState<UserAdd> {
                           password: passCtrl.text))
                       .then((value) => value != null
                           ? showSnackbar("Bu kullanıcı adı zaten kayıtlı.")
-                          : null);
+                          : showSnackbar("Başarı ile kayıt oldunuz"));
                   userLevel == "Veteriner"
                       ? VetDB()
                           .addVet(Vet(
@@ -158,7 +158,7 @@ class _UserAddState extends BaseState<UserAdd> {
                           .then((value) => value != null
                               ? showSnackbar("Bu kullanıcı adı zaten kayıtlı")
                               : null)
-                      : print("Kullanici");
+                      : print("Kullanıcı");
                 },
                 icon: Icon(Icons.send,color: Colors.white,),
                 label: Text("Kaydet",style: TextStyle(color: Colors.white),),

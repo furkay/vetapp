@@ -17,7 +17,7 @@ class _VetDetailsState extends BaseState<VetDetails> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF003D78),
-        title: Text("Doktorlar"),
+        title: Text("${widget.data} Kliniği"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
